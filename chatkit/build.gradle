@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
@@ -11,14 +12,20 @@ android {
         versionName "0.3.3"
         consumerProguardFiles 'proguard.txt'
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
     android {
         lintOptions {
             abortOnError false
         }
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions{
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 
@@ -38,9 +45,14 @@ ext {
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.10'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation "androidx.core:core-ktx:1.3.2"
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation "com.google.android:flexbox:$flexboxVersion"
+}
+repositories {
+    mavenCentral()
 }
