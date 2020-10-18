@@ -3,13 +3,17 @@ apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "27.0.3"
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 21
         versionCode 1
         versionName "0.3.3"
         consumerProguardFiles 'proguard.txt'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     android {
         lintOptions {
@@ -30,13 +34,13 @@ publish {
 
 ext {
     supportVersion = '27.1.1'
-    flexboxVersion = '1.0.0'
+    flexboxVersion = '2.0.1'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "com.android.support:appcompat-v7:$supportVersion"
-    implementation "com.android.support:design:$supportVersion"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation "com.google.android:flexbox:$flexboxVersion"
 }
