@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.ViewHolder;
-import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.MessageType;
 import com.stfalcon.chatkit.commons.models.MessageContentType;
 import com.stfalcon.chatkit.utils.DateFormatter;
 import com.stfalcon.chatkit.utils.RoundedImageView;
@@ -40,8 +40,8 @@ public class MessageHolders {
     private Class<? extends ViewHolder<Date>> dateHeaderHolder;
     private int dateHeaderLayout;
 
-    private HolderConfig<IMessage> incomingTextConfig;
-    private HolderConfig<IMessage> outcomingTextConfig;
+    private HolderConfig<MessageType> incomingTextConfig;
+    private HolderConfig<MessageType> outcomingTextConfig;
     private HolderConfig<MessageContentType.Image> incomingImageConfig;
     private HolderConfig<MessageContentType.Image> outcomingImageConfig;
 
@@ -66,7 +66,7 @@ public class MessageHolders {
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public MessageHolders setIncomingTextConfig(
-            @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder,
+            @NonNull Class<? extends BaseMessageViewHolder<? extends MessageType>> holder,
             @LayoutRes int layout) {
         this.incomingTextConfig.holder = holder;
         this.incomingTextConfig.layout = layout;
@@ -82,7 +82,7 @@ public class MessageHolders {
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public MessageHolders setIncomingTextConfig(
-            @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder,
+            @NonNull Class<? extends BaseMessageViewHolder<? extends MessageType>> holder,
             @LayoutRes int layout,
             Object payload) {
         this.incomingTextConfig.holder = holder;
@@ -98,7 +98,7 @@ public class MessageHolders {
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public MessageHolders setIncomingTextHolder(
-            @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder) {
+            @NonNull Class<? extends BaseMessageViewHolder<? extends MessageType>> holder) {
         this.incomingTextConfig.holder = holder;
         return this;
     }
@@ -111,7 +111,7 @@ public class MessageHolders {
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public MessageHolders setIncomingTextHolder(
-            @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder,
+            @NonNull Class<? extends BaseMessageViewHolder<? extends MessageType>> holder,
             Object payload) {
         this.incomingTextConfig.holder = holder;
         this.incomingTextConfig.payload = payload;
@@ -150,7 +150,7 @@ public class MessageHolders {
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public MessageHolders setOutcomingTextConfig(
-            @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder,
+            @NonNull Class<? extends BaseMessageViewHolder<? extends MessageType>> holder,
             @LayoutRes int layout) {
         this.outcomingTextConfig.holder = holder;
         this.outcomingTextConfig.layout = layout;
@@ -166,7 +166,7 @@ public class MessageHolders {
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public MessageHolders setOutcomingTextConfig(
-            @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder,
+            @NonNull Class<? extends BaseMessageViewHolder<? extends MessageType>> holder,
             @LayoutRes int layout,
             Object payload) {
         this.outcomingTextConfig.holder = holder;
@@ -182,7 +182,7 @@ public class MessageHolders {
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public MessageHolders setOutcomingTextHolder(
-            @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder) {
+            @NonNull Class<? extends BaseMessageViewHolder<? extends MessageType>> holder) {
         this.outcomingTextConfig.holder = holder;
         return this;
     }
@@ -195,7 +195,7 @@ public class MessageHolders {
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public MessageHolders setOutcomingTextHolder(
-            @NonNull Class<? extends BaseMessageViewHolder<? extends IMessage>> holder,
+            @NonNull Class<? extends BaseMessageViewHolder<? extends MessageType>> holder,
             Object payload) {
         this.outcomingTextConfig.holder = holder;
         this.outcomingTextConfig.payload = payload;
@@ -521,7 +521,7 @@ public class MessageHolders {
     /**
      * The interface, which contains logic for checking the availability of content.
      */
-    public interface ContentChecker<MESSAGE extends IMessage> {
+    public interface ContentChecker<MESSAGE extends MessageType> {
 
         /**
          * Checks the availability of content.
@@ -570,7 +570,7 @@ public class MessageHolders {
                         final DateFormatter.Formatter dateHeadersFormatter,
                         final SparseArray<MessagesListAdapter.OnMessageViewClickListener> clickListenersArray) {
 
-        if (item instanceof IMessage) {
+        if (item instanceof MessageType) {
             ((MessageHolders.BaseMessageViewHolder) holder).isSelected = isSelected;
             ((MessageHolders.BaseMessageViewHolder) holder).imageLoader = imageLoader;
             holder.itemView.setOnLongClickListener(onMessageLongClickListener);
@@ -583,7 +583,7 @@ public class MessageHolders {
                     view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            clickListenersArray.get(key).onMessageViewClick(view, (IMessage) item);
+                            clickListenersArray.get(key).onMessageViewClick(view, (MessageType) item);
                         }
                     });
                 }
@@ -600,9 +600,9 @@ public class MessageHolders {
         boolean isOutcoming = false;
         int viewType;
 
-        if (item instanceof IMessage) {
-            IMessage message = (IMessage) item;
-            isOutcoming = message.getUser().getId().contentEquals(senderId);
+        if (item instanceof MessageType) {
+            MessageType message = (MessageType) item;
+            isOutcoming = message.getSender().getId().contentEquals(senderId);
             viewType = getContentViewType(message);
 
         } else viewType = VIEW_TYPE_DATE_HEADER;
@@ -642,7 +642,7 @@ public class MessageHolders {
     }
 
     @SuppressWarnings("unchecked")
-    private short getContentViewType(IMessage message) {
+    private short getContentViewType(MessageType message) {
         if (message instanceof MessageContentType.Image
                 && ((MessageContentType.Image) message).getImageUrl() != null) {
             return VIEW_TYPE_IMAGE_MESSAGE;
@@ -672,7 +672,7 @@ public class MessageHolders {
      * The base class for view holders for incoming and outcoming message.
      * You can extend it to create your own holder in conjuction with custom layout or even using default layout.
      */
-    public static abstract class BaseMessageViewHolder<MESSAGE extends IMessage> extends ViewHolder<MESSAGE> {
+    public static abstract class BaseMessageViewHolder<MESSAGE extends MessageType> extends ViewHolder<MESSAGE> {
 
         boolean isSelected;
 
@@ -742,7 +742,7 @@ public class MessageHolders {
     /**
      * Default view holder implementation for incoming text message
      */
-    public static class IncomingTextMessageViewHolder<MESSAGE extends IMessage>
+    public static class IncomingTextMessageViewHolder<MESSAGE extends MessageType>
             extends BaseIncomingMessageViewHolder<MESSAGE> {
 
         protected ViewGroup bubble;
@@ -801,7 +801,7 @@ public class MessageHolders {
     /**
      * Default view holder implementation for outcoming text message
      */
-    public static class OutcomingTextMessageViewHolder<MESSAGE extends IMessage>
+    public static class OutcomingTextMessageViewHolder<MESSAGE extends MessageType>
             extends BaseOutcomingMessageViewHolder<MESSAGE> {
 
         protected ViewGroup bubble;
@@ -834,19 +834,19 @@ public class MessageHolders {
         public final void applyStyle(MessagesListStyle style) {
             super.applyStyle(style);
             if (bubble != null) {
-                bubble.setPadding(style.getOutcomingDefaultBubblePaddingLeft(),
-                        style.getOutcomingDefaultBubblePaddingTop(),
-                        style.getOutcomingDefaultBubblePaddingRight(),
-                        style.getOutcomingDefaultBubblePaddingBottom());
-                ViewCompat.setBackground(bubble, style.getOutcomingBubbleDrawable());
+                bubble.setPadding(style.getOutgoingDefaultBubblePaddingLeft(),
+                        style.getOutgoingDefaultBubblePaddingTop(),
+                        style.getOutgoingDefaultBubblePaddingRight(),
+                        style.getOutgoingDefaultBubblePaddingBottom());
+                ViewCompat.setBackground(bubble, style.getOutgoingBubbleDrawable());
             }
 
             if (text != null) {
-                text.setTextColor(style.getOutcomingTextColor());
-                text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTextSize());
-                text.setTypeface(text.getTypeface(), style.getOutcomingTextStyle());
+                text.setTextColor(style.getOutgoingTextColor());
+                text.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutgoingTextSize());
+                text.setTypeface(text.getTypeface(), style.getOutgoingTextStyle());
                 text.setAutoLinkMask(style.getTextAutoLinkMask());
-                text.setLinkTextColor(style.getOutcomingTextLinkColor());
+                text.setLinkTextColor(style.getOutgoingTextLinkColor());
                 configureLinksBehavior(text);
             }
         }
@@ -963,13 +963,13 @@ public class MessageHolders {
         public final void applyStyle(MessagesListStyle style) {
             super.applyStyle(style);
             if (time != null) {
-                time.setTextColor(style.getOutcomingImageTimeTextColor());
-                time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingImageTimeTextSize());
-                time.setTypeface(time.getTypeface(), style.getOutcomingImageTimeTextStyle());
+                time.setTextColor(style.getOutgoingImageTimeTextColor());
+                time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutgoingImageTimeTextSize());
+                time.setTypeface(time.getTypeface(), style.getOutgoingImageTimeTextStyle());
             }
 
             if (imageOverlay != null) {
-                ViewCompat.setBackground(imageOverlay, style.getOutcomingImageOverlayDrawable());
+                ViewCompat.setBackground(imageOverlay, style.getOutgoingImageOverlayDrawable());
             }
         }
 
@@ -1038,7 +1038,7 @@ public class MessageHolders {
     /**
      * Base view holder for incoming message
      */
-    public abstract static class BaseIncomingMessageViewHolder<MESSAGE extends IMessage>
+    public abstract static class BaseIncomingMessageViewHolder<MESSAGE extends MessageType>
             extends BaseMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
 
         protected TextView time;
@@ -1058,17 +1058,17 @@ public class MessageHolders {
         @Override
         public void onBind(MESSAGE message) {
             if (time != null) {
-                time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
+                time.setText(DateFormatter.format(message.getSentDate(), DateFormatter.Template.TIME));
             }
 
             if (userAvatar != null) {
                 boolean isAvatarExists = imageLoader != null
-                        && message.getUser().getAvatar() != null
-                        && !message.getUser().getAvatar().isEmpty();
+                        && message.getSender().getAvatar() != null
+                        && !message.getSender().getAvatar().isEmpty();
 
                 userAvatar.setVisibility(isAvatarExists ? View.VISIBLE : View.GONE);
                 if (isAvatarExists) {
-                    imageLoader.loadImage(userAvatar, message.getUser().getAvatar(), null);
+                    imageLoader.loadImage(userAvatar, message.getSender().getAvatar(), null);
                 }
             }
         }
@@ -1097,7 +1097,7 @@ public class MessageHolders {
     /**
      * Base view holder for outcoming message
      */
-    public abstract static class BaseOutcomingMessageViewHolder<MESSAGE extends IMessage>
+    public abstract static class BaseOutcomingMessageViewHolder<MESSAGE extends MessageType>
             extends BaseMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
 
         protected TextView time;
@@ -1116,16 +1116,16 @@ public class MessageHolders {
         @Override
         public void onBind(MESSAGE message) {
             if (time != null) {
-                time.setText(DateFormatter.format(message.getCreatedAt(), DateFormatter.Template.TIME));
+                time.setText(DateFormatter.format(message.getSentDate(), DateFormatter.Template.TIME));
             }
         }
 
         @Override
         public void applyStyle(MessagesListStyle style) {
             if (time != null) {
-                time.setTextColor(style.getOutcomingTimeTextColor());
-                time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutcomingTimeTextSize());
-                time.setTypeface(time.getTypeface(), style.getOutcomingTimeTextStyle());
+                time.setTextColor(style.getOutgoingTimeTextColor());
+                time.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getOutgoingTimeTextSize());
+                time.setTypeface(time.getTypeface(), style.getOutgoingTimeTextStyle());
             }
         }
 
@@ -1143,7 +1143,7 @@ public class MessageHolders {
     }
 
     private static class DefaultIncomingTextMessageViewHolder
-            extends IncomingTextMessageViewHolder<IMessage> {
+            extends IncomingTextMessageViewHolder<MessageType> {
 
         public DefaultIncomingTextMessageViewHolder(View itemView) {
             super(itemView, null);
@@ -1151,7 +1151,7 @@ public class MessageHolders {
     }
 
     private static class DefaultOutcomingTextMessageViewHolder
-            extends OutcomingTextMessageViewHolder<IMessage> {
+            extends OutcomingTextMessageViewHolder<MessageType> {
 
         public DefaultOutcomingTextMessageViewHolder(View itemView) {
             super(itemView, null);
@@ -1189,7 +1189,7 @@ public class MessageHolders {
         }
     }
 
-    private class HolderConfig<T extends IMessage> {
+    private class HolderConfig<T extends MessageType> {
 
         protected Class<? extends BaseMessageViewHolder<? extends T>> holder;
         protected int layout;

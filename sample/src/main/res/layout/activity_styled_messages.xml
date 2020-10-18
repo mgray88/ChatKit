@@ -19,14 +19,14 @@
         app:incomingTextColor="@color/black"
         app:incomingTextLinkColor="@color/green"
         app:incomingTextSize="18sp"
-        app:outcomingDefaultBubbleColor="@color/green"
-        app:outcomingDefaultBubblePressedColor="@color/green_dark"
-        app:outcomingDefaultBubbleSelectedColor="@color/gray_dark_transparent"
-        app:outcomingDefaultImageOverlayPressedColor="@color/black_10"
-        app:outcomingDefaultImageOverlaySelectedColor="@color/gray_transparent"
-        app:outcomingTextColor="@color/white"
-        app:outcomingTextLinkColor="@color/brown"
-        app:outcomingTextSize="18sp"
+        app:outgoingDefaultBubbleColor="@color/green"
+        app:outgoingDefaultBubblePressedColor="@color/green_dark"
+        app:outgoingDefaultBubbleSelectedColor="@color/gray_dark_transparent"
+        app:outgoingDefaultImageOverlayPressedColor="@color/black_10"
+        app:outgoingDefaultImageOverlaySelectedColor="@color/gray_transparent"
+        app:outgoingTextColor="@color/white"
+        app:outgoingTextLinkColor="@color/brown"
+        app:outgoingTextSize="18sp"
         app:textAutoLink="all"/>
 
     <View

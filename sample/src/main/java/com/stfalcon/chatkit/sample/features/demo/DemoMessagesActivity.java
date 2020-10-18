@@ -108,7 +108,7 @@ public abstract class DemoMessagesActivity extends AppCompatActivity
             @Override
             public void run() {
                 ArrayList<Message> messages = MessagesFixtures.getMessages(lastLoadedDate);
-                lastLoadedDate = messages.get(messages.size() - 1).getCreatedAt();
+                lastLoadedDate = messages.get(messages.size() - 1).getSentDate();
                 messagesAdapter.addToEnd(messages, false);
             }
         }, 1000);
@@ -119,13 +119,13 @@ public abstract class DemoMessagesActivity extends AppCompatActivity
             @Override
             public String format(Message message) {
                 String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
-                        .format(message.getCreatedAt());
+                        .format(message.getSentDate());
 
                 String text = message.getText();
                 if (text == null) text = "[attachment]";
 
                 return String.format(Locale.getDefault(), "%s: %s (%s)",
-                        message.getUser().getName(), text, createdAt);
+                        message.getSender().getName(), text, createdAt);
             }
         };
     }

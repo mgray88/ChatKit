@@ -60,7 +60,7 @@
         </attr>
 
         <attr name="incomingTextLinkColor" format="color|reference"/>
-        <attr name="outcomingTextLinkColor" format="color|reference"/>
+        <attr name="outgoingTextLinkColor" format="color|reference"/>
 
         <attr name="incomingAvatarWidth" format="dimension|reference"/>
         <attr name="incomingAvatarHeight" format="dimension|reference"/>
@@ -103,39 +103,39 @@
             <flag name="italic" value="2"/>
         </attr>
 
-        <attr name="outcomingBubbleDrawable" format="reference"/>
-        <attr name="outcomingDefaultBubbleColor" format="color|reference"/>
-        <attr name="outcomingDefaultBubblePressedColor" format="color|reference"/>
-        <attr name="outcomingDefaultBubbleSelectedColor" format="color|reference"/>
+        <attr name="outgoingBubbleDrawable" format="reference"/>
+        <attr name="outgoingDefaultBubbleColor" format="color|reference"/>
+        <attr name="outgoingDefaultBubblePressedColor" format="color|reference"/>
+        <attr name="outgoingDefaultBubbleSelectedColor" format="color|reference"/>
 
-        <attr name="outcomingImageOverlayDrawable" format="reference"/>
-        <attr name="outcomingDefaultImageOverlayPressedColor" format="color|reference"/>
-        <attr name="outcomingDefaultImageOverlaySelectedColor" format="color|reference"/>
+        <attr name="outgoingImageOverlayDrawable" format="reference"/>
+        <attr name="outgoingDefaultImageOverlayPressedColor" format="color|reference"/>
+        <attr name="outgoingDefaultImageOverlaySelectedColor" format="color|reference"/>
 
-        <attr name="outcomingBubblePaddingLeft" format="dimension|reference"/>
-        <attr name="outcomingBubblePaddingRight" format="dimension|reference"/>
-        <attr name="outcomingBubblePaddingTop" format="dimension|reference"/>
-        <attr name="outcomingBubblePaddingBottom" format="dimension|reference"/>
+        <attr name="outgoingBubblePaddingLeft" format="dimension|reference"/>
+        <attr name="outgoingBubblePaddingRight" format="dimension|reference"/>
+        <attr name="outgoingBubblePaddingTop" format="dimension|reference"/>
+        <attr name="outgoingBubblePaddingBottom" format="dimension|reference"/>
 
-        <attr name="outcomingTextColor" format="color|reference"/>
-        <attr name="outcomingTextSize" format="dimension|reference"/>
-        <attr name="outcomingTextStyle">
+        <attr name="outgoingTextColor" format="color|reference"/>
+        <attr name="outgoingTextSize" format="dimension|reference"/>
+        <attr name="outgoingTextStyle">
             <flag name="normal" value="0"/>
             <flag name="bold" value="1"/>
             <flag name="italic" value="2"/>
         </attr>
 
-        <attr name="outcomingTimeTextColor" format="color|reference"/>
-        <attr name="outcomingTimeTextSize" format="dimension|reference"/>
-        <attr name="outcomingTimeTextStyle">
+        <attr name="outgoingTimeTextColor" format="color|reference"/>
+        <attr name="outgoingTimeTextSize" format="dimension|reference"/>
+        <attr name="outgoingTimeTextStyle">
             <flag name="normal" value="0"/>
             <flag name="bold" value="1"/>
             <flag name="italic" value="2"/>
         </attr>
 
-        <attr name="outcomingImageTimeTextColor" format="color|reference"/>
-        <attr name="outcomingImageTimeTextSize" format="dimension|reference"/>
-        <attr name="outcomingImageTimeTextStyle">
+        <attr name="outgoingImageTimeTextColor" format="color|reference"/>
+        <attr name="outgoingImageTimeTextSize" format="dimension|reference"/>
+        <attr name="outgoingImageTimeTextStyle">
             <flag name="normal" value="0"/>
             <flag name="bold" value="1"/>
             <flag name="italic" value="2"/>

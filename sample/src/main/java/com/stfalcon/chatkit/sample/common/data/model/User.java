@@ -1,11 +1,11 @@
 package com.stfalcon.chatkit.sample.common.data.model;
 
-import com.stfalcon.chatkit.commons.models.IUser;
+import com.stfalcon.chatkit.commons.models.SenderType;
 
 /*
  * Created by troy379 on 04.04.17.
  */
-public class User implements IUser {
+public class User implements SenderType {
 
     private String id;
     private String name;

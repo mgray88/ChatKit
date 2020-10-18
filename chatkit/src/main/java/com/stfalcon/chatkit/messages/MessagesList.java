@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 import android.util.AttributeSet;
 
-import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.MessageType;
 
 /**
  * Component for displaying list of messages
@@ -61,7 +61,7 @@ public class MessagesList extends RecyclerView {
      * @param adapter   Adapter. Must extend MessagesListAdapter
      * @param <MESSAGE> Message model class
      */
-    public <MESSAGE extends IMessage>
+    public <MESSAGE extends MessageType>
     void setAdapter(MessagesListAdapter<MESSAGE> adapter) {
         setAdapter(adapter, true);
     }
@@ -73,7 +73,7 @@ public class MessagesList extends RecyclerView {
      * @param reverseLayout weather to use reverse layout for layout manager.
      * @param <MESSAGE>     Message model class
      */
-    public <MESSAGE extends IMessage>
+    public <MESSAGE extends MessageType>
     void setAdapter(MessagesListAdapter<MESSAGE> adapter, boolean reverseLayout) {
         SimpleItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setSupportsChangeAnimations(false);

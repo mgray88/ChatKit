@@ -27,12 +27,12 @@ import com.stfalcon.chatkit.messages.MessageHolders;
  * Interface used to mark messages as custom content types. For its representation see {@link MessageHolders}
  */
 
-public interface MessageContentType extends IMessage {
+public interface MessageContentType extends MessageType {
 
     /**
      * Default media type for image message.
      */
-    interface Image extends IMessage {
+    interface Image extends MessageType {
         @Nullable
         String getImageUrl();
     }

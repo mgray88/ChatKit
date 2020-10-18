@@ -1,6 +1,6 @@
 package com.stfalcon.chatkit.sample.common.data.model;
 
-import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.MessageType;
 import com.stfalcon.chatkit.commons.models.MessageContentType;
 
 import java.util.Date;
@@ -8,7 +8,7 @@ import java.util.Date;
 /*
  * Created by troy379 on 04.04.17.
  */
-public class Message implements IMessage,
+public class Message implements MessageType,
         MessageContentType.Image, /*this is for default image messages implementation*/
         MessageContentType /*and this one is for custom content type (in this case - voice message)*/ {
 
@@ -31,7 +31,7 @@ public class Message implements IMessage,
     }
 
     @Override
-    public String getId() {
+    public String getMessageId() {
         return id;
     }
 
@@ -41,12 +41,12 @@ public class Message implements IMessage,
     }
 
     @Override
-    public Date getCreatedAt() {
+    public Date getSentDate() {
         return createdAt;
     }
 
     @Override
-    public User getUser() {
+    public User getSender() {
         return this.user;
     }
 

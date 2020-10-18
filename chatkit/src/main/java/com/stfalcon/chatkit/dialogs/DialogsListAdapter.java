@@ -32,7 +32,7 @@ import com.stfalcon.chatkit.R;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IDialog;
-import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.MessageType;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
 import java.lang.reflect.Constructor;
@@ -306,7 +306,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
      * @return false if dialog doesn't exist.
      */
     @SuppressWarnings("unchecked")
-    public boolean updateDialogWithMessage(String dialogId, IMessage message) {
+    public boolean updateDialogWithMessage(String dialogId, MessageType message) {
         boolean dialogExist = false;
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getId().equals(dialogId)) {
@@ -330,9 +330,9 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         Collections.sort(items, new Comparator<DIALOG>() {
             @Override
             public int compare(DIALOG o1, DIALOG o2) {
-                if (o1.getLastMessage().getCreatedAt().after(o2.getLastMessage().getCreatedAt())) {
+                if (o1.getLastMessage().getSentDate().after(o2.getLastMessage().getSentDate())) {
                     return -1;
-                } else if (o1.getLastMessage().getCreatedAt().before(o2.getLastMessage().getCreatedAt())) {
+                } else if (o1.getLastMessage().getSentDate().before(o2.getLastMessage().getSentDate())) {
                     return 1;
                 } else return 0;
             }
@@ -646,7 +646,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             String formattedDate = null;
 
             if (dialog.getLastMessage() != null) {
-                Date lastMessageDate = dialog.getLastMessage().getCreatedAt();
+                Date lastMessageDate = dialog.getLastMessage().getSentDate();
                 if (datesFormatter != null) formattedDate = datesFormatter.format(lastMessageDate);
                 tvDate.setText(formattedDate == null
                         ? getDateString(lastMessageDate)
@@ -662,7 +662,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
             //Set Last message user avatar with check if there is last message
             if (imageLoader != null && dialog.getLastMessage() != null) {
-                imageLoader.loadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar(), null);
+                imageLoader.loadImage(ivLastMessageUser, dialog.getLastMessage().getSender().getAvatar(), null);
             }
             ivLastMessageUser.setVisibility(dialogStyle.isDialogMessageAvatarEnabled()
                     && dialog.getUsers().size() > 1
