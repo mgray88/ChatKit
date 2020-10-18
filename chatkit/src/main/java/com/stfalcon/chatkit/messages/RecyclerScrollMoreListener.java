@@ -57,10 +57,10 @@ class RecyclerScrollMoreListener
             if (mLayoutManager instanceof StaggeredGridLayoutManager) {
                 int[] lastVisibleItemPositions = ((StaggeredGridLayoutManager) mLayoutManager).findLastVisibleItemPositions(null);
                 lastVisibleItemPosition = getLastVisibleItem(lastVisibleItemPositions);
-            } else if (mLayoutManager instanceof LinearLayoutManager) {
-                lastVisibleItemPosition = ((LinearLayoutManager) mLayoutManager).findLastVisibleItemPosition();
             } else if (mLayoutManager instanceof GridLayoutManager) {
                 lastVisibleItemPosition = ((GridLayoutManager) mLayoutManager).findLastVisibleItemPosition();
+            } else if (mLayoutManager instanceof LinearLayoutManager) {
+                lastVisibleItemPosition = ((LinearLayoutManager) mLayoutManager).findLastVisibleItemPosition();
             }
 
             if (totalItemCount < previousTotalItemCount) {

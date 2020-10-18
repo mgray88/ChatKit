@@ -15,8 +15,8 @@ import com.stfalcon.chatkit.sample.common.data.model.Message;
 import com.stfalcon.chatkit.sample.features.demo.DemoMessagesActivity;
 import com.stfalcon.chatkit.sample.features.demo.custom.holder.holders.messages.CustomIncomingImageMessageViewHolder;
 import com.stfalcon.chatkit.sample.features.demo.custom.holder.holders.messages.CustomIncomingTextMessageViewHolder;
-import com.stfalcon.chatkit.sample.features.demo.custom.holder.holders.messages.CustomOutcomingImageMessageViewHolder;
-import com.stfalcon.chatkit.sample.features.demo.custom.holder.holders.messages.CustomOutcomingTextMessageViewHolder;
+import com.stfalcon.chatkit.sample.features.demo.custom.holder.holders.messages.CustomOutgoingImageMessageViewHolder;
+import com.stfalcon.chatkit.sample.features.demo.custom.holder.holders.messages.CustomOutgoingTextMessageViewHolder;
 import com.stfalcon.chatkit.sample.utils.AppUtils;
 
 public class CustomHolderMessagesActivity extends DemoMessagesActivity
@@ -79,13 +79,13 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
                         R.layout.item_custom_incoming_text_message,
                         payload)
                 .setOutcomingTextConfig(
-                        CustomOutcomingTextMessageViewHolder.class,
+                        CustomOutgoingTextMessageViewHolder.class,
                         R.layout.item_custom_outcoming_text_message)
                 .setIncomingImageConfig(
                         CustomIncomingImageMessageViewHolder.class,
                         R.layout.item_custom_incoming_image_message)
                 .setOutcomingImageConfig(
-                        CustomOutcomingImageMessageViewHolder.class,
+                        CustomOutgoingImageMessageViewHolder.class,
                         R.layout.item_custom_outcoming_image_message);
 
         super.messagesAdapter = new MessagesListAdapter<>(super.senderId, holdersConfig, super.imageLoader);

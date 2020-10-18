@@ -5,10 +5,10 @@ import android.view.View;
 import com.stfalcon.chatkit.messages.MessageHolders;
 import com.stfalcon.chatkit.sample.common.data.model.Message;
 
-public class CustomOutcomingTextMessageViewHolder
-        extends MessageHolders.OutcomingTextMessageViewHolder<Message> {
+public class CustomOutgoingTextMessageViewHolder
+        extends MessageHolders.OutgoingTextMessageViewHolder<Message> {
 
-    public CustomOutcomingTextMessageViewHolder(View itemView, Object payload) {
+    public CustomOutgoingTextMessageViewHolder(View itemView, Object payload) {
         super(itemView, payload);
     }
 

@@ -9,10 +9,10 @@ import com.stfalcon.chatkit.sample.common.data.model.Message;
 /*
  * Created by troy379 on 05.04.17.
  */
-public class CustomOutcomingImageMessageViewHolder
-        extends MessageHolders.OutcomingImageMessageViewHolder<Message> {
+public class CustomOutgoingImageMessageViewHolder
+        extends MessageHolders.OutgoingImageMessageViewHolder<Message> {
 
-    public CustomOutcomingImageMessageViewHolder(View itemView, Object payload) {
+    public CustomOutgoingImageMessageViewHolder(View itemView, Object payload) {
         super(itemView, payload);
     }
 

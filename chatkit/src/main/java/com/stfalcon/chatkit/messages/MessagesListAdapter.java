@@ -988,13 +988,13 @@ public class MessagesListAdapter<MESSAGE extends MessageType>
     }
 
     /**
-     * This class is deprecated. Use {@link MessageHolders.OutcomingTextMessageViewHolder} instead.
+     * This class is deprecated. Use {@link MessageHolders.OutgoingTextMessageViewHolder} instead.
      */
     @Deprecated
-    public static class OutcomingMessageViewHolder<MESSAGE extends MessageType>
-            extends MessageHolders.OutcomingTextMessageViewHolder<MESSAGE> {
+    public static class OutgoingMessageViewHolder<MESSAGE extends MessageType>
+            extends MessageHolders.OutgoingTextMessageViewHolder<MESSAGE> {
 
-        public OutcomingMessageViewHolder(View itemView) {
+        public OutgoingMessageViewHolder(View itemView) {
             super(itemView);
         }
     }

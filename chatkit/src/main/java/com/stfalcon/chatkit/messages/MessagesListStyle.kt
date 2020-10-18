@@ -146,7 +146,7 @@ internal class MessagesListStyle private constructor(
         return if (outgoingBubbleDrawable == -1) {
             getMessageSelector(
                 outgoingDefaultBubbleColor, outgoingDefaultBubbleSelectedColor,
-                outgoingDefaultBubblePressedColor, R.drawable.shape_outcoming_message
+                outgoingDefaultBubblePressedColor, R.drawable.shape_outgoing_message
             )
         } else {
             getDrawable(outgoingBubbleDrawable)
@@ -157,7 +157,7 @@ internal class MessagesListStyle private constructor(
         return if (outgoingImageOverlayDrawable == -1) {
             getMessageSelector(
                 Color.TRANSPARENT, outgoingDefaultImageOverlaySelectedColor,
-                outgoingDefaultImageOverlayPressedColor, R.drawable.shape_outcoming_message
+                outgoingDefaultImageOverlayPressedColor, R.drawable.shape_outgoing_message
             )
         } else {
             getDrawable(outgoingImageOverlayDrawable)

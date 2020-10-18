@@ -66,7 +66,7 @@ android.enableJetifier=true
 ### Proguard
 If you are using ProGuard you might need to add rules:
 ```
--keep class * extends com.stfalcon.chatkit.messages.MessageHolders$OutcomingTextMessageViewHolder {
+-keep class * extends com.stfalcon.chatkit.messages.MessageHolders$OutgoingTextMessageViewHolder {
      public <init>(android.view.View, java.lang.Object);
      public <init>(android.view.View);
  }
@@ -78,7 +78,7 @@ If you are using ProGuard you might need to add rules:
      public <init>(android.view.View, java.lang.Object);
      public <init>(android.view.View);
  }
--keep class * extends com.stfalcon.chatkit.messages.MessageHolders$OutcomingImageMessageViewHolder {
+-keep class * extends com.stfalcon.chatkit.messages.MessageHolders$OutgoingImageMessageViewHolder {
      public <init>(android.view.View, java.lang.Object);
      public <init>(android.view.View);
  }

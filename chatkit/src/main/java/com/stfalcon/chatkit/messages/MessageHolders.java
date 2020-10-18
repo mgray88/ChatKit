@@ -41,9 +41,9 @@ public class MessageHolders {
     private int dateHeaderLayout;
 
     private HolderConfig<MessageType> incomingTextConfig;
-    private HolderConfig<MessageType> outcomingTextConfig;
+    private HolderConfig<MessageType> outgoingTextConfig;
     private HolderConfig<MessageContentType.Image> incomingImageConfig;
-    private HolderConfig<MessageContentType.Image> outcomingImageConfig;
+    private HolderConfig<MessageContentType.Image> outgoingImageConfig;
 
     private List<ContentTypeConfig> customContentTypes = new ArrayList<>();
     private ContentChecker contentChecker;
@@ -53,9 +53,9 @@ public class MessageHolders {
         this.dateHeaderLayout = R.layout.item_date_header;
 
         this.incomingTextConfig = new HolderConfig<>(DefaultIncomingTextMessageViewHolder.class, R.layout.item_incoming_text_message);
-        this.outcomingTextConfig = new HolderConfig<>(DefaultOutcomingTextMessageViewHolder.class, R.layout.item_outcoming_text_message);
+        this.outgoingTextConfig = new HolderConfig<>(DefaultOutgoingTextMessageViewHolder.class, R.layout.item_outgoing_text_message);
         this.incomingImageConfig = new HolderConfig<>(DefaultIncomingImageMessageViewHolder.class, R.layout.item_incoming_image_message);
-        this.outcomingImageConfig = new HolderConfig<>(DefaultOutcomingImageMessageViewHolder.class, R.layout.item_outcoming_image_message);
+        this.outgoingImageConfig = new HolderConfig<>(DefaultOutgoingImageMessageViewHolder.class, R.layout.item_outgoing_image_message);
     }
 
     /**
@@ -152,8 +152,8 @@ public class MessageHolders {
     public MessageHolders setOutcomingTextConfig(
             @NonNull Class<? extends BaseMessageViewHolder<? extends MessageType>> holder,
             @LayoutRes int layout) {
-        this.outcomingTextConfig.holder = holder;
-        this.outcomingTextConfig.layout = layout;
+        this.outgoingTextConfig.holder = holder;
+        this.outgoingTextConfig.layout = layout;
         return this;
     }
 
@@ -169,9 +169,9 @@ public class MessageHolders {
             @NonNull Class<? extends BaseMessageViewHolder<? extends MessageType>> holder,
             @LayoutRes int layout,
             Object payload) {
-        this.outcomingTextConfig.holder = holder;
-        this.outcomingTextConfig.layout = layout;
-        this.outcomingTextConfig.payload = payload;
+        this.outgoingTextConfig.holder = holder;
+        this.outgoingTextConfig.layout = layout;
+        this.outgoingTextConfig.payload = payload;
         return this;
     }
 
@@ -183,7 +183,7 @@ public class MessageHolders {
      */
     public MessageHolders setOutcomingTextHolder(
             @NonNull Class<? extends BaseMessageViewHolder<? extends MessageType>> holder) {
-        this.outcomingTextConfig.holder = holder;
+        this.outgoingTextConfig.holder = holder;
         return this;
     }
 
@@ -197,8 +197,8 @@ public class MessageHolders {
     public MessageHolders setOutcomingTextHolder(
             @NonNull Class<? extends BaseMessageViewHolder<? extends MessageType>> holder,
             Object payload) {
-        this.outcomingTextConfig.holder = holder;
-        this.outcomingTextConfig.payload = payload;
+        this.outgoingTextConfig.holder = holder;
+        this.outgoingTextConfig.payload = payload;
         return this;
     }
 
@@ -209,7 +209,7 @@ public class MessageHolders {
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public MessageHolders setOutcomingTextLayout(@LayoutRes int layout) {
-        this.outcomingTextConfig.layout = layout;
+        this.outgoingTextConfig.layout = layout;
         return this;
     }
 
@@ -221,8 +221,8 @@ public class MessageHolders {
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public MessageHolders setOutcomingTextLayout(@LayoutRes int layout, Object payload) {
-        this.outcomingTextConfig.layout = layout;
-        this.outcomingTextConfig.payload = payload;
+        this.outgoingTextConfig.layout = layout;
+        this.outgoingTextConfig.payload = payload;
         return this;
     }
 
@@ -320,8 +320,8 @@ public class MessageHolders {
     public MessageHolders setOutcomingImageConfig(
             @NonNull Class<? extends BaseMessageViewHolder<? extends MessageContentType.Image>> holder,
             @LayoutRes int layout) {
-        this.outcomingImageConfig.holder = holder;
-        this.outcomingImageConfig.layout = layout;
+        this.outgoingImageConfig.holder = holder;
+        this.outgoingImageConfig.layout = layout;
         return this;
     }
 
@@ -337,9 +337,9 @@ public class MessageHolders {
             @NonNull Class<? extends BaseMessageViewHolder<? extends MessageContentType.Image>> holder,
             @LayoutRes int layout,
             Object payload) {
-        this.outcomingImageConfig.holder = holder;
-        this.outcomingImageConfig.layout = layout;
-        this.outcomingImageConfig.payload = payload;
+        this.outgoingImageConfig.holder = holder;
+        this.outgoingImageConfig.layout = layout;
+        this.outgoingImageConfig.payload = payload;
         return this;
     }
 
@@ -351,7 +351,7 @@ public class MessageHolders {
      */
     public MessageHolders setOutcomingImageHolder(
             @NonNull Class<? extends BaseMessageViewHolder<? extends MessageContentType.Image>> holder) {
-        this.outcomingImageConfig.holder = holder;
+        this.outgoingImageConfig.holder = holder;
         return this;
     }
 
@@ -365,8 +365,8 @@ public class MessageHolders {
     public MessageHolders setOutcomingImageHolder(
             @NonNull Class<? extends BaseMessageViewHolder<? extends MessageContentType.Image>> holder,
             Object payload) {
-        this.outcomingImageConfig.holder = holder;
-        this.outcomingImageConfig.payload = payload;
+        this.outgoingImageConfig.holder = holder;
+        this.outgoingImageConfig.payload = payload;
         return this;
     }
 
@@ -377,7 +377,7 @@ public class MessageHolders {
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public MessageHolders setOutcomingImageLayout(@LayoutRes int layout) {
-        this.outcomingImageConfig.layout = layout;
+        this.outgoingImageConfig.layout = layout;
         return this;
     }
 
@@ -389,8 +389,8 @@ public class MessageHolders {
      * @return {@link MessageHolders} for subsequent configuration.
      */
     public MessageHolders setOutcomingImageLayout(@LayoutRes int layout, Object payload) {
-        this.outcomingImageConfig.layout = layout;
-        this.outcomingImageConfig.payload = payload;
+        this.outgoingImageConfig.layout = layout;
+        this.outgoingImageConfig.payload = payload;
         return this;
     }
 
@@ -544,18 +544,18 @@ public class MessageHolders {
             case VIEW_TYPE_TEXT_MESSAGE:
                 return getHolder(parent, incomingTextConfig, messagesListStyle);
             case -VIEW_TYPE_TEXT_MESSAGE:
-                return getHolder(parent, outcomingTextConfig, messagesListStyle);
+                return getHolder(parent, outgoingTextConfig, messagesListStyle);
             case VIEW_TYPE_IMAGE_MESSAGE:
                 return getHolder(parent, incomingImageConfig, messagesListStyle);
             case -VIEW_TYPE_IMAGE_MESSAGE:
-                return getHolder(parent, outcomingImageConfig, messagesListStyle);
+                return getHolder(parent, outgoingImageConfig, messagesListStyle);
             default:
                 for (ContentTypeConfig typeConfig : customContentTypes) {
                     if (Math.abs(typeConfig.type) == Math.abs(viewType)) {
                         if (viewType > 0)
                             return getHolder(parent, typeConfig.incomingConfig, messagesListStyle);
                         else
-                            return getHolder(parent, typeConfig.outcomingConfig, messagesListStyle);
+                            return getHolder(parent, typeConfig.outgoingConfig, messagesListStyle);
                     }
                 }
         }
@@ -669,8 +669,8 @@ public class MessageHolders {
      * */
 
     /**
-     * The base class for view holders for incoming and outcoming message.
-     * You can extend it to create your own holder in conjuction with custom layout or even using default layout.
+     * The base class for view holders for incoming and outgoing message.
+     * You can extend it to create your own holder in conjunction with custom layout or even using default layout.
      */
     public static abstract class BaseMessageViewHolder<MESSAGE extends MessageType> extends ViewHolder<MESSAGE> {
 
@@ -799,21 +799,21 @@ public class MessageHolders {
     }
 
     /**
-     * Default view holder implementation for outcoming text message
+     * Default view holder implementation for outgoing text message
      */
-    public static class OutcomingTextMessageViewHolder<MESSAGE extends MessageType>
-            extends BaseOutcomingMessageViewHolder<MESSAGE> {
+    public static class OutgoingTextMessageViewHolder<MESSAGE extends MessageType>
+            extends BaseOutgoingMessageViewHolder<MESSAGE> {
 
         protected ViewGroup bubble;
         protected TextView text;
 
         @Deprecated
-        public OutcomingTextMessageViewHolder(View itemView) {
+        public OutgoingTextMessageViewHolder(View itemView) {
             super(itemView);
             init(itemView);
         }
 
-        public OutcomingTextMessageViewHolder(View itemView, Object payload) {
+        public OutgoingTextMessageViewHolder(View itemView, Object payload) {
             super(itemView, payload);
             init(itemView);
         }
@@ -928,21 +928,21 @@ public class MessageHolders {
     }
 
     /**
-     * Default view holder implementation for outcoming image message
+     * Default view holder implementation for outgoing image message
      */
-    public static class OutcomingImageMessageViewHolder<MESSAGE extends MessageContentType.Image>
-            extends BaseOutcomingMessageViewHolder<MESSAGE> {
+    public static class OutgoingImageMessageViewHolder<MESSAGE extends MessageContentType.Image>
+            extends BaseOutgoingMessageViewHolder<MESSAGE> {
 
         protected ImageView image;
         protected View imageOverlay;
 
         @Deprecated
-        public OutcomingImageMessageViewHolder(View itemView) {
+        public OutgoingImageMessageViewHolder(View itemView) {
             super(itemView);
             init(itemView);
         }
 
-        public OutcomingImageMessageViewHolder(View itemView, Object payload) {
+        public OutgoingImageMessageViewHolder(View itemView, Object payload) {
             super(itemView, payload);
             init(itemView);
         }
@@ -1097,18 +1097,18 @@ public class MessageHolders {
     /**
      * Base view holder for outcoming message
      */
-    public abstract static class BaseOutcomingMessageViewHolder<MESSAGE extends MessageType>
+    public abstract static class BaseOutgoingMessageViewHolder<MESSAGE extends MessageType>
             extends BaseMessageViewHolder<MESSAGE> implements DefaultMessageViewHolder {
 
         protected TextView time;
 
         @Deprecated
-        public BaseOutcomingMessageViewHolder(View itemView) {
+        public BaseOutgoingMessageViewHolder(View itemView) {
             super(itemView);
             init(itemView);
         }
 
-        public BaseOutcomingMessageViewHolder(View itemView, Object payload) {
+        public BaseOutgoingMessageViewHolder(View itemView, Object payload) {
             super(itemView, payload);
             init(itemView);
         }
@@ -1150,10 +1150,10 @@ public class MessageHolders {
         }
     }
 
-    private static class DefaultOutcomingTextMessageViewHolder
-            extends OutcomingTextMessageViewHolder<MessageType> {
+    private static class DefaultOutgoingTextMessageViewHolder
+            extends OutgoingTextMessageViewHolder<MessageType> {
 
-        public DefaultOutcomingTextMessageViewHolder(View itemView) {
+        public DefaultOutgoingTextMessageViewHolder(View itemView) {
             super(itemView, null);
         }
     }
@@ -1166,10 +1166,10 @@ public class MessageHolders {
         }
     }
 
-    private static class DefaultOutcomingImageMessageViewHolder
-            extends OutcomingImageMessageViewHolder<MessageContentType.Image> {
+    private static class DefaultOutgoingImageMessageViewHolder
+            extends OutgoingImageMessageViewHolder<MessageContentType.Image> {
 
-        public DefaultOutcomingImageMessageViewHolder(View itemView) {
+        public DefaultOutgoingImageMessageViewHolder(View itemView) {
             super(itemView, null);
         }
     }
@@ -1178,14 +1178,14 @@ public class MessageHolders {
 
         private byte type;
         private HolderConfig<TYPE> incomingConfig;
-        private HolderConfig<TYPE> outcomingConfig;
+        private HolderConfig<TYPE> outgoingConfig;
 
         private ContentTypeConfig(
-                byte type, HolderConfig<TYPE> incomingConfig, HolderConfig<TYPE> outcomingConfig) {
+                byte type, HolderConfig<TYPE> incomingConfig, HolderConfig<TYPE> outgoingConfig) {
 
             this.type = type;
             this.incomingConfig = incomingConfig;
-            this.outcomingConfig = outcomingConfig;
+            this.outgoingConfig = outgoingConfig;
         }
     }
 
