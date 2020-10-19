@@ -20,7 +20,7 @@ import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.MessageType;
 import com.stfalcon.chatkit.commons.models.MessageContentType;
 import com.stfalcon.chatkit.utils.DateFormatter;
-import com.stfalcon.chatkit.utils.RoundedImageView;
+import com.stfalcon.chatkit.views.RoundedImageView;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -568,7 +568,7 @@ public class MessageHolders {
                         final View.OnClickListener onMessageClickListener,
                         final View.OnLongClickListener onMessageLongClickListener,
                         final DateFormatter.Formatter dateHeadersFormatter,
-                        final SparseArray<MessagesListAdapter.OnMessageViewClickListener> clickListenersArray) {
+                        final SparseArray<MessagesListAdapter.OnMessageViewClickListener<MessageType>> clickListenersArray) {
 
         if (item instanceof MessageType) {
             ((MessageHolders.BaseMessageViewHolder) holder).isSelected = isSelected;

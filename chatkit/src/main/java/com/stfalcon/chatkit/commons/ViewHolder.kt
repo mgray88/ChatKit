@@ -20,10 +20,20 @@ package com.stfalcon.chatkit.commons
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
+import com.stfalcon.chatkit.commons.models.MessageType
 
 /**
  * Base ViewHolder
  */
-abstract class ViewHolder<DATA>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+abstract class ViewHolder<DATA>(
+    itemView: View
+) : RecyclerView.ViewHolder(itemView) {
     abstract fun onBind(data: DATA)
+}
+
+abstract class MessageViewHolder<Message : MessageType, Binding : ViewBinding>(
+    protected open val binding: Binding
+) : RecyclerView.ViewHolder(binding.root) {
+    abstract fun onBind(message: Message)
 }

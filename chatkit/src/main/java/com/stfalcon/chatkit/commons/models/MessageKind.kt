@@ -10,5 +10,13 @@ sealed class MessageKind {
 
     class Photo(val item: MediaItem): MessageKind()
 
-    class emoji(val emoji: String): MessageKind()
+    class Emoji(val emoji: String): MessageKind()
+
+    internal val viewType: Int
+        get() = when (this) {
+            is Text -> 0
+            is SpannedText -> 1
+            is Photo -> 2
+            is Emoji -> 3
+        }
 }

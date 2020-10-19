@@ -21,6 +21,7 @@ package com.stfalcon.chatkit.commons
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.NinePatchDrawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import androidx.annotation.AttrRes

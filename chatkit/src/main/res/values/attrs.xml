@@ -65,6 +65,23 @@
         <attr name="incomingAvatarWidth" format="dimension|reference"/>
         <attr name="incomingAvatarHeight" format="dimension|reference"/>
 
+        <attr name="incomingBubbleStyle">
+            <enum name="none" value="0" />
+            <enum name="bubble" value="1" />
+            <enum name="bubbleOutline" value="2" />
+            <enum name="bubbleTail" value="3" />
+            <enum name="bubbleTailOutline" value="4" />
+        </attr>
+        <attr name="incomingBubbleStyleTailCorner">
+            <enum name="topLeft" value="0" />
+            <enum name="bottomLeft" value="1" />
+            <enum name="topRight" value="2" />
+            <enum name="bottomRight" value="3" />
+        </attr>
+        <attr name="incomingBubbleStyleTailStyle">
+            <enum name="curved" value="0" />
+            <enum name="pointed" value="1" />
+        </attr>
         <attr name="incomingBubbleDrawable" format="reference"/>
         <attr name="incomingDefaultBubbleColor" format="color|reference"/>
         <attr name="incomingDefaultBubblePressedColor" format="color|reference"/>
@@ -103,6 +120,23 @@
             <flag name="italic" value="2"/>
         </attr>
 
+        <attr name="outgoingBubbleStyle">
+            <enum name="none" value="0" />
+            <enum name="bubble" value="1" />
+            <enum name="bubbleOutline" value="2" />
+            <enum name="bubbleTail" value="3" />
+            <enum name="bubbleTailOutline" value="4" />
+        </attr>
+        <attr name="outgoingBubbleStyleTailCorner">
+            <enum name="topLeft" value="0" />
+            <enum name="bottomLeft" value="1" />
+            <enum name="topRight" value="2" />
+            <enum name="bottomRight" value="3" />
+        </attr>
+        <attr name="outgoingBubbleStyleTailStyle">
+            <enum name="curved" value="0" />
+            <enum name="pointed" value="1" />
+        </attr>
         <attr name="outgoingBubbleDrawable" format="reference"/>
         <attr name="outgoingDefaultBubbleColor" format="color|reference"/>
         <attr name="outgoingDefaultBubblePressedColor" format="color|reference"/>

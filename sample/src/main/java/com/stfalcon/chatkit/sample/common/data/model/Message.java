@@ -1,7 +1,10 @@
 package com.stfalcon.chatkit.sample.common.data.model;
 
+import com.stfalcon.chatkit.commons.models.MessageKind;
 import com.stfalcon.chatkit.commons.models.MessageType;
 import com.stfalcon.chatkit.commons.models.MessageContentType;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
@@ -77,6 +80,12 @@ public class Message implements MessageType,
 
     public void setVoice(Voice voice) {
         this.voice = voice;
+    }
+
+    @NotNull
+    @Override
+    public MessageKind getKind() {
+        return new MessageKind.Text(text);
     }
 
     public static class Image {

@@ -54,18 +54,13 @@ public class DefaultMessagesActivity extends DemoMessagesActivity
     }
 
     private void initAdapter() {
-        super.messagesAdapter = new MessagesListAdapter<>(super.senderId, super.imageLoader);
+        super.messagesAdapter = new MessagesListAdapter(super.senderId, super.imageLoader);
         super.messagesAdapter.enableSelectionMode(this);
         super.messagesAdapter.setLoadMoreListener(this);
         super.messagesAdapter.registerViewClickListener(R.id.messageUserAvatar,
-                new MessagesListAdapter.OnMessageViewClickListener<Message>() {
-                    @Override
-                    public void onMessageViewClick(View view, Message message) {
-                        AppUtils.showToast(DefaultMessagesActivity.this,
-                                message.getSender().getName() + " avatar click",
-                                false);
-                    }
-                });
+                (view, message) -> AppUtils.showToast(DefaultMessagesActivity.this,
+                        message.getSender().getName() + " avatar click",
+                        false));
         this.messagesList.setAdapter(super.messagesAdapter);
     }
 

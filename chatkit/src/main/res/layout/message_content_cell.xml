@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.stfalcon.chatkit.views.MessageContentCell xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.stfalcon.chatkit.views.AvatarView
+        android:id="@+id/avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_width="40dp"
+        tools:layout_height="40dp"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/cell_top_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Cell Top Label"
+        tools:gravity="center"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/message_top_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cell_top_label"
+        tools:text="Message Top Label"
+        tools:paddingLeft="40dp"
+        />
+
+    <com.stfalcon.chatkit.views.MessageContainerView
+        android:id="@+id/message_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/message_top_label"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        tools:paddingLeft="40dp"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/message_bottom_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/message_container"
+        tools:text="Message Bottom Label"
+        tools:paddingLeft="40dp"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/cell_bottom_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/message_bottom_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Cell Bottom Label"
+        tools:gravity="center"
+        />
+
+</com.stfalcon.chatkit.views.MessageContentCell>

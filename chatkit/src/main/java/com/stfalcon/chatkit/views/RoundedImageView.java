@@ -1,4 +1,4 @@
-package com.stfalcon.chatkit.utils;
+package com.stfalcon.chatkit.views;
 
 import android.content.Context;
 import android.content.res.Resources;

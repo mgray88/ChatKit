@@ -36,7 +36,7 @@ import com.stfalcon.chatkit.R;
 import java.lang.reflect.Field;
 
 /**
- * Component for input outcoming messages
+ * Component for input outgoing messages
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class MessageInput extends RelativeLayout

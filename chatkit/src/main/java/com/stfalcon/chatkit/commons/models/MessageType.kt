@@ -25,9 +25,7 @@ import java.util.Date
  */
 interface MessageType {
     /**
-     * Returns message identifier
-     *
-     * @return the message id
+     * Message identifier
      */
     val messageId: String
 
@@ -39,16 +37,17 @@ interface MessageType {
     val text: String
 
     /**
-     * Returns message author. See the [SenderType] for more details
-     *
-     * @return the message author
+     * Message sender. See the [SenderType] for more details
      */
     val sender: SenderType
 
     /**
-     * Returns message creation date
-     *
-     * @return the message creation date
+     * Message sent date
      */
     val sentDate: Date
+
+    /**
+     * The kind of message and its underlying kind
+     */
+    val kind: MessageKind
 }

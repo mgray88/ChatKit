@@ -29,24 +29,37 @@ import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.DrawableCompat
 import com.stfalcon.chatkit.R
 import com.stfalcon.chatkit.commons.Style
+import com.stfalcon.chatkit.commons.models.MessageStyle
 
 /**
  * Style for MessagesListStyle customization by xml attributes
  */
-internal class MessagesListStyle private constructor(
+class MessagesListStyle private constructor(
     context: Context,
     attrs: AttributeSet
 ) : Style(context, attrs) {
     var textAutoLinkMask = 0
-        private set
     var incomingTextLinkColor = 0
-        private set
     var outgoingTextLinkColor = 0
-        private set
     var incomingAvatarWidth = 0
-        private set
     var incomingAvatarHeight = 0
-        private set
+    var incomingDefaultBubblePaddingLeft = 0
+    var incomingDefaultBubblePaddingRight = 0
+    var incomingDefaultBubblePaddingTop = 0
+    var incomingDefaultBubblePaddingBottom = 0
+    var incomingTextColor = 0
+    var incomingTextSize = 0
+    var incomingTextStyle = 0
+    var incomingTimeTextColor = 0
+    var incomingTimeTextSize = 0
+    var incomingTimeTextStyle = 0
+    var incomingImageTimeTextColor = 0
+    var incomingImageTimeTextSize = 0
+    var incomingImageTimeTextStyle = 0
+
+    private var incomingBubbleStyleRaw = 0
+    private var incomingBubbleStyleTailCorner = 0
+    private var incomingBubbleStyleTailStyle = 0
     private var incomingBubbleDrawable = 0
     private var incomingDefaultBubbleColor = 0
     private var incomingDefaultBubblePressedColor = 0
@@ -54,32 +67,44 @@ internal class MessagesListStyle private constructor(
     private var incomingImageOverlayDrawable = 0
     private var incomingDefaultImageOverlayPressedColor = 0
     private var incomingDefaultImageOverlaySelectedColor = 0
-    var incomingDefaultBubblePaddingLeft = 0
-        private set
-    var incomingDefaultBubblePaddingRight = 0
-        private set
-    var incomingDefaultBubblePaddingTop = 0
-        private set
-    var incomingDefaultBubblePaddingBottom = 0
-        private set
-    var incomingTextColor = 0
-        private set
-    var incomingTextSize = 0
-        private set
-    var incomingTextStyle = 0
-        private set
-    var incomingTimeTextColor = 0
-        private set
-    var incomingTimeTextSize = 0
-        private set
-    var incomingTimeTextStyle = 0
-        private set
-    var incomingImageTimeTextColor = 0
-        private set
-    var incomingImageTimeTextSize = 0
-        private set
-    var incomingImageTimeTextStyle = 0
-        private set
+
+    val incomingBubbleStyle: MessageStyle
+        get() = when (incomingBubbleStyleRaw) {
+            1 -> MessageStyle.Bubble
+            2 -> MessageStyle.BubbleOutline(incomingDefaultBubbleColor)
+            3 -> {
+                MessageStyle.BubbleTail(
+                    bubbleStyleTailCorner(incomingBubbleStyleTailCorner),
+                    bubbleStyleTailStyle(incomingBubbleStyleTailStyle)
+                )
+            }
+            4 -> {
+                MessageStyle.BubbleTailOutline(
+                    incomingDefaultBubbleColor,
+                    bubbleStyleTailCorner(incomingBubbleStyleTailCorner),
+                    bubbleStyleTailStyle(incomingBubbleStyleTailStyle)
+                )
+            }
+            else -> MessageStyle.None
+        }
+
+    var outgoingDefaultBubblePaddingLeft = 0
+    var outgoingDefaultBubblePaddingRight = 0
+    var outgoingDefaultBubblePaddingTop = 0
+    var outgoingDefaultBubblePaddingBottom = 0
+    var outgoingTextColor = 0
+    var outgoingTextSize = 0
+    var outgoingTextStyle = 0
+    var outgoingTimeTextColor = 0
+    var outgoingTimeTextSize = 0
+    var outgoingTimeTextStyle = 0
+    var outgoingImageTimeTextColor = 0
+    var outgoingImageTimeTextSize = 0
+    var outgoingImageTimeTextStyle = 0
+
+    private var outgoingBubbleStyleRaw = 0
+    private var outgoingBubbleStyleTailCorner = 0
+    private var outgoingBubbleStyleTailStyle = 0
     private var outgoingBubbleDrawable = 0
     private var outgoingDefaultBubbleColor = 0
     private var outgoingDefaultBubblePressedColor = 0
@@ -87,42 +112,32 @@ internal class MessagesListStyle private constructor(
     private var outgoingImageOverlayDrawable = 0
     private var outgoingDefaultImageOverlayPressedColor = 0
     private var outgoingDefaultImageOverlaySelectedColor = 0
-    var outgoingDefaultBubblePaddingLeft = 0
-        private set
-    var outgoingDefaultBubblePaddingRight = 0
-        private set
-    var outgoingDefaultBubblePaddingTop = 0
-        private set
-    var outgoingDefaultBubblePaddingBottom = 0
-        private set
-    var outgoingTextColor = 0
-        private set
-    var outgoingTextSize = 0
-        private set
-    var outgoingTextStyle = 0
-        private set
-    var outgoingTimeTextColor = 0
-        private set
-    var outgoingTimeTextSize = 0
-        private set
-    var outgoingTimeTextStyle = 0
-        private set
-    var outgoingImageTimeTextColor = 0
-        private set
-    var outgoingImageTimeTextSize = 0
-        private set
-    var outgoingImageTimeTextStyle = 0
-        private set
+
+    val outgoingBubbleStyle: MessageStyle
+        get() = when (outgoingBubbleStyleRaw) {
+            1 -> MessageStyle.Bubble
+            2 -> MessageStyle.BubbleOutline(outgoingDefaultBubbleColor)
+            3 -> {
+                MessageStyle.BubbleTail(
+                    bubbleStyleTailCorner(outgoingBubbleStyleTailCorner),
+                    bubbleStyleTailStyle(outgoingBubbleStyleTailStyle)
+                )
+            }
+            4 -> {
+                MessageStyle.BubbleTailOutline(
+                    outgoingDefaultBubbleColor,
+                    bubbleStyleTailCorner(outgoingBubbleStyleTailCorner),
+                    bubbleStyleTailStyle(outgoingBubbleStyleTailStyle)
+                )
+            }
+            else -> MessageStyle.None
+        }
+
     var dateHeaderPadding = 0
-        private set
     var dateHeaderFormat: String? = null
-        private set
     var dateHeaderTextColor = 0
-        private set
     var dateHeaderTextSize = 0
-        private set
     var dateHeaderTextStyle = 0
-        private set
 
     private fun getMessageSelector(
         @ColorInt normalColor: Int, @ColorInt selectedColor: Int,
@@ -140,6 +155,20 @@ internal class MessagesListStyle private constructor(
             )
         )
         return drawable
+    }
+
+    private fun bubbleStyleTailCorner(raw: Int) = when (raw) {
+        0 -> MessageStyle.TailCorner.TopLeft
+        1 -> MessageStyle.TailCorner.BottomLeft
+        2 -> MessageStyle.TailCorner.TopRight
+        4 -> MessageStyle.TailCorner.BottomRight
+        else -> throw IllegalArgumentException("")
+    }
+
+    private fun bubbleStyleTailStyle(raw: Int) = when (raw) {
+        0 -> MessageStyle.TailStyle.Pointed
+        1 -> MessageStyle.TailStyle.Curved
+        else -> throw IllegalArgumentException("")
     }
 
     fun getOutgoingBubbleDrawable(): Drawable? {
@@ -208,6 +237,12 @@ internal class MessagesListStyle private constructor(
                 R.styleable.MessagesList_incomingAvatarHeight,
                 style.getDimension(R.dimen.message_avatar_height)
             )
+            style.incomingBubbleStyleRaw =
+                typedArray.getInt(R.styleable.MessagesList_incomingBubbleStyle, 0)
+            style.incomingBubbleStyleTailCorner =
+                typedArray.getInt(R.styleable.MessagesList_incomingBubbleStyleTailCorner, 0)
+            style.incomingBubbleStyleTailStyle =
+                typedArray.getInt(R.styleable.MessagesList_incomingBubbleStyleTailStyle, 0)
             style.incomingBubbleDrawable =
                 typedArray.getResourceId(R.styleable.MessagesList_incomingBubbleDrawable, -1)
             style.incomingDefaultBubbleColor = typedArray.getColor(
@@ -280,6 +315,12 @@ internal class MessagesListStyle private constructor(
                 R.styleable.MessagesList_incomingImageTimeTextStyle,
                 Typeface.NORMAL
             )
+            style.outgoingBubbleStyleRaw =
+                typedArray.getInt(R.styleable.MessagesList_outgoingBubbleStyle, 0)
+            style.outgoingBubbleStyleTailCorner =
+                typedArray.getInt(R.styleable.MessagesList_outgoingBubbleStyleTailCorner, 0)
+            style.outgoingBubbleStyleTailStyle =
+                typedArray.getInt(R.styleable.MessagesList_outgoingBubbleStyleTailStyle, 0)
             style.outgoingBubbleDrawable =
                 typedArray.getResourceId(R.styleable.MessagesList_outgoingBubbleDrawable, -1)
             style.outgoingDefaultBubbleColor = typedArray.getColor(

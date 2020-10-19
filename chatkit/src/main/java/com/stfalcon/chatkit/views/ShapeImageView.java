@@ -14,7 +14,7 @@
  * limitations under the License.
  *******************************************************************************/
 
-package com.stfalcon.chatkit.utils;
+package com.stfalcon.chatkit.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
