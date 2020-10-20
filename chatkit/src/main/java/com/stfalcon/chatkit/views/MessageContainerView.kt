@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.stfalcon.chatkit.commons.models.MessageStyle
 
-open class MessageContainerView(
+open class MessageContainerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defaultRes: Int = 0
