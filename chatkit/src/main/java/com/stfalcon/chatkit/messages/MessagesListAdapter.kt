@@ -32,13 +32,13 @@ import com.stfalcon.chatkit.views.layoutInflater
  * Adapter for [MessagesList].
  */
 open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
-    internal val senderId: String,
-    internal val imageLoader: ImageLoader? = null,
+    protected val senderId: String,
+    protected val imageLoader: ImageLoader? = null,
 ) : RecyclerView.Adapter<MessageContentCellViewHolder>(), RecyclerScrollMoreListener.OnLoadMoreListener {
     protected val messages = mutableListOf<Message>()
 
-    open var messageCellDelegate: MessageCellDelegate? = null
-    open var messageDisplayDelegate: MessageDisplayDelegate? = null
+    open var messageCellDelegate: MessageCellDelegate = MessageCellDelegate()
+    open var messageDisplayDelegate: MessageDisplayDelegate = MessageDisplayDelegate()
 
     private var loadMoreListener: OnLoadMoreListener? = null
     private var layoutManager: RecyclerView.LayoutManager? = null

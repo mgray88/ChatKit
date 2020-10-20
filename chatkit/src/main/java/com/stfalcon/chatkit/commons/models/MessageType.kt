@@ -18,7 +18,7 @@
  */
 package com.stfalcon.chatkit.commons.models
 
-import java.util.Date
+import java.time.LocalDateTime
 
 /**
  * For implementing by real message model
@@ -30,13 +30,6 @@ interface MessageType {
     val messageId: String
 
     /**
-     * Returns message text
-     *
-     * @return the message text
-     */
-    val text: String
-
-    /**
      * Message sender. See the [SenderType] for more details
      */
     val sender: SenderType
@@ -44,7 +37,7 @@ interface MessageType {
     /**
      * Message sent date
      */
-    val sentDate: Date
+    val sentDate: LocalDateTime
 
     /**
      * The kind of message and its underlying kind

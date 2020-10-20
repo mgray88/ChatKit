@@ -40,16 +40,16 @@ open class MessageContentCellViewHolder(
         styleMessageContainer(style)
 
         binding.root.setOnClickListener {
-            adapter.messageCellDelegate?.onClick(it)
+            adapter.messageCellDelegate.onCellClick(it)
         }
         binding.root.setOnLongClickListener {
-            adapter.messageCellDelegate?.onLongClick(binding.messageContainer) ?: false
+            adapter.messageCellDelegate.onCellLongClick(binding.messageContainer)
         }
         binding.messageContainer.setOnClickListener {
-            adapter.messageCellDelegate?.onMessageClick(binding.messageContainer)
+            adapter.messageCellDelegate.onMessageClick(binding.messageContainer)
         }
         binding.messageContainer.setOnLongClickListener {
-            adapter.messageCellDelegate?.onMessageLongClick(binding.messageContainer) ?: true
+            adapter.messageCellDelegate.onMessageLongClick(binding.messageContainer)
         }
 
         // binding.messageContainer.setOnCreateContextMenuListener()

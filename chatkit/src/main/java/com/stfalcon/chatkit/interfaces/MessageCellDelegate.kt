@@ -3,14 +3,24 @@ package com.stfalcon.chatkit.interfaces
 import android.view.View
 import com.stfalcon.chatkit.views.MessageContainerView
 
-abstract class MessageCellDelegate :
-    View.OnClickListener,
-    View.OnLongClickListener {
-    override fun onClick(v: View?) {}
+open class MessageCellDelegate {
+    open var onCellClick: (v: View) -> Unit = { _ -> }
+    open fun onCellClick(onCellClick: (v: View) -> Unit) {
+        this.onCellClick = onCellClick
+    }
 
-    override fun onLongClick(v: View?): Boolean = true
+    open var onCellLongClick: (v: View) -> Boolean = { _ -> true }
+    open fun onCellLongClick(onCellLongClick: (v: View) -> Boolean) {
+        this.onCellLongClick = onCellLongClick
+    }
 
-    open fun onMessageClick(messageContainer: MessageContainerView) {}
+    open var onMessageClick: (messageContainer: MessageContainerView) -> Unit = { _ -> }
+    open fun onMessageClick(onMessageClick: (messageContainer: MessageContainerView) -> Unit) {
+        this.onMessageClick = onMessageClick
+    }
 
-    open fun onMessageLongClick(messageContainer: MessageContainerView): Boolean = true
+    open var onMessageLongClick: (messageContainer: MessageContainerView) -> Boolean = { _ -> true }
+    open fun onMessageLongClick(onMessageLongClick: (messageContainer: MessageContainerView) -> Boolean) {
+        this.onMessageLongClick = onMessageLongClick
+    }
 }
