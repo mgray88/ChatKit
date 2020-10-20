@@ -26,13 +26,12 @@ import android.view.View
 import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.stfalcon.chatkit.commons.ImageLoader
 import com.stfalcon.chatkit.commons.models.MessageType
+import com.stfalcon.chatkit.interfaces.MessageCellDelegate
+import com.stfalcon.chatkit.interfaces.MessageDisplayDelegate
 import com.stfalcon.chatkit.utils.DateFormatter
-import com.stfalcon.chatkit.views.MessageContentCell
 import com.stfalcon.chatkit.views.MessageContentCellViewHolder
-import com.stfalcon.chatkit.views.TextMessageCell
 import com.stfalcon.chatkit.views.TextMessageCellViewHolder
 import com.stfalcon.chatkit.views.layoutInflater
 import java.util.ArrayList
@@ -42,11 +41,14 @@ import java.util.Date
  * Adapter for [MessagesList].
  */
 open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
-    private val senderId: String,
-    private val imageLoader: ImageLoader? = null,
-    private val holders: MessageHolders = MessageHolders(),
+    internal val senderId: String,
+    internal val imageLoader: ImageLoader? = null,
 ) : RecyclerView.Adapter<MessageContentCellViewHolder>(), RecyclerScrollMoreListener.OnLoadMoreListener {
     protected val messages = mutableListOf<Message>()
+
+    open var messageCellDelegate: MessageCellDelegate? = null
+    open var messageDisplayDelegate: MessageDisplayDelegate? = null
+    internal var isSelectionModeEnabled = false
 
     protected var items = mutableListOf<Wrapper<*>>()
     private var selectedItemsCount = 0
@@ -64,28 +66,22 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageContentCellViewHolder {
         return when (viewType) {
             0 -> {
-                val textMessageCell = TextMessageCell.inflate(parent.layoutInflater)
-                messagesListStyle?.let { textMessageCell.applyStyle(it) }
-                TextMessageCellViewHolder(textMessageCell)
+                TextMessageCellViewHolder.inflate(parent.layoutInflater).also { vh ->
+                    messagesListStyle?.let {
+                        vh.applyStyle(it, this)
+                    }
+                }
             }
             else -> {
-                MessageContentCellViewHolder(MessageContentCell.inflate(parent.layoutInflater))
+                TODO()
             }
         }
-        // return holders.getHolder(parent, viewType, messagesListStyle)
     }
 
     override fun onBindViewHolder(holder: MessageContentCellViewHolder, position: Int) {
         val message = messages[position]
+        holder.configure(message, position, this)
         holder.onBind(message)
-        // val wrapper: Wrapper<MESSAGE> = items[position] as Wrapper<MESSAGE>
-        // holders.bind(
-        //     holder, wrapper.item, wrapper.isSelected, imageLoader,
-        //     getMessageClickListener(wrapper),
-        //     getMessageLongClickListener(wrapper),
-        //     dateHeadersFormatter,
-        //     viewClickListenersArray as SparseArray<OnMessageViewClickListener<MessageType>>
-        // )
     }
 
     override fun getItemCount(): Int {
@@ -104,13 +100,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     }
 
     override fun getMessagesCount(): Int {
-        var count = 0
-        for (item in items) {
-            if (item.item is MessageType) {
-                count++
-            }
-        }
-        return count
+        return itemCount
     }
     /*
      * PUBLIC METHODS
@@ -122,17 +112,8 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
      * @param scroll  `true` if need to scroll list to bottom when message added.
      */
     fun addToStart(message: Message, scroll: Boolean) {
-        val isNewMessageToday = !isPreviousSameDate(0, message.sentDate)
-        if (isNewMessageToday) {
-            items.add(
-                0, Wrapper<Date>(
-                    message.sentDate
-                )
-            )
-        }
-        val element: Wrapper<Message> = Wrapper(message)
-        items.add(0, element)
-        notifyItemRangeInserted(0, if (isNewMessageToday) 2 else 1)
+        messages.add(0, message)
+        notifyItemRangeInserted(0, 1)
         if (layoutManager != null && scroll) {
             layoutManager!!.scrollToPosition(0)
         }
@@ -145,19 +126,19 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
      * @param reverse  `true` if need to reverse messages before adding.
      */
     fun addToEnd(messages: List<Message>, reverse: Boolean) {
-        if (messages.isEmpty()) return
-        val messages = if (reverse) messages.reversed() else messages
-        if (items.isNotEmpty()) {
-            val lastItemPosition = items.size - 1
-            val lastItem = items[lastItemPosition].item as Date
-            if (DateFormatter.isSameDay(messages[0].sentDate, lastItem)) {
-                items.removeAt(lastItemPosition)
-                notifyItemRemoved(lastItemPosition)
-            }
-        }
-        val oldSize = items.size
-        generateDateHeaders(messages)
-        notifyItemRangeInserted(oldSize, items.size - oldSize)
+        // if (messages.isEmpty()) return
+        // val messages = if (reverse) messages.reversed() else messages
+        // if (items.isNotEmpty()) {
+        //     val lastItemPosition = items.size - 1
+        //     val lastItem = items[lastItemPosition].item as Date
+        //     if (DateFormatter.isSameDay(messages[0].sentDate, lastItem)) {
+        //         items.removeAt(lastItemPosition)
+        //         notifyItemRemoved(lastItemPosition)
+        //     }
+        // }
+        // val oldSize = items.size
+        // generateDateHeaders(messages)
+        // notifyItemRangeInserted(oldSize, items.size - oldSize)
     }
 
     /**
@@ -178,9 +159,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     fun update(oldId: String, newMessage: Message): Boolean {
         val position = getMessagePositionById(oldId)
         return if (position >= 0) {
-            val element: Wrapper<Message> =
-                Wrapper(newMessage)
-            items[position] = element
+            messages[position] = newMessage
             notifyItemChanged(position)
             true
         } else {
@@ -196,9 +175,8 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     fun updateAndMoveToStart(newMessage: Message) {
         val position = getMessagePositionById(newMessage.messageId)
         if (position >= 0) {
-            val element: Wrapper<Message> = Wrapper(newMessage)
-            items.removeAt(position)
-            items.add(0, element)
+            messages.removeAt(position)
+            messages.add(0, newMessage)
             notifyItemMoved(position, 0)
             notifyItemChanged(0)
         }
@@ -252,7 +230,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
         for (message in messages) {
             val index = getMessagePositionById(message.messageId)
             if (index >= 0) {
-                items.removeAt(index)
+                this.messages.removeAt(index)
                 notifyItemRemoved(index)
                 result = true
             }
@@ -270,7 +248,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     fun deleteById(id: String) {
         val index = getMessagePositionById(id)
         if (index >= 0) {
-            items.removeAt(index)
+            messages.removeAt(index)
             notifyItemRemoved(index)
             recountDateHeaders()
         }
@@ -286,7 +264,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
         for (id in ids) {
             val index = getMessagePositionById(id)
             if (index >= 0) {
-                items.removeAt(index)
+                messages.removeAt(index)
                 notifyItemRemoved(index)
                 result = true
             }
@@ -302,7 +280,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
      * @return `true` if size is 0, otherwise `false`
      */
     val isEmpty: Boolean
-        get() = items.isEmpty()
+        get() = messages.isEmpty()
     /**
      * Clears the messages list.
      */
@@ -311,7 +289,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
      */
     @JvmOverloads
     fun clear(notifyDataSetChanged: Boolean = true) {
-        items.clear()
+        messages.clear()
         if (notifyDataSetChanged) {
             notifyDataSetChanged()
         }
@@ -322,8 +300,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
      *
      * @param selectionListener listener for selected items count. To get selected messages use [.getSelectedMessages].
      */
-    fun enableSelectionMode(selectionListener: SelectionListener?) {
-        requireNotNull(selectionListener) { "SelectionListener must not be null. Use `disableSelectionMode()` if you want tp disable selection mode" }
+    fun enableSelectionMode(selectionListener: SelectionListener) {
         this.selectionListener = selectionListener
     }
 
@@ -342,6 +319,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
      */
     val selectedMessages: ArrayList<Message>
         get() {
+
             val selectedMessages = ArrayList<Message>()
             for (wrapper in items) {
                 if (wrapper.item is MessageType && wrapper.isSelected) {
@@ -498,62 +476,16 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
         }
     }
 
-    protected fun generateDateHeaders(messages: List<Message>) {
-        for (i in messages.indices) {
-            val message = messages[i]
-            items.add(Wrapper(message))
-            if (messages.size > i + 1) {
-                val nextMessage = messages[i + 1]
-                if (!DateFormatter.isSameDay(message.sentDate, nextMessage.sentDate)) {
-                    items.add(
-                        Wrapper(
-                            message.sentDate
-                        )
-                    )
-                }
-            } else {
-                items.add(
-                    Wrapper(
-                        message.sentDate
-                    )
-                )
-            }
-        }
+    internal fun getMessagePositionById(id: String): Int {
+        return messages.indexOfFirst { it.messageId == id }
     }
 
-    private fun getMessagePositionById(id: String): Int {
-        for (i in items.indices) {
-            val wrapper: Wrapper<*> = items[i]
-            if (wrapper.item is MessageType) {
-                val message = wrapper.item as Message
-                if (message.messageId.contentEquals(id)) {
-                    return i
-                }
-            }
-        }
-        return -1
-    }
-
-    private fun isPreviousSameDate(position: Int, dateToCompare: Date): Boolean {
-        if (items.size <= position) return false
-        return if (items[position].item is MessageType) {
-            val previousPositionDate = (items[position].item as Message).sentDate
-            DateFormatter.isSameDay(dateToCompare, previousPositionDate)
-        } else false
-    }
-
-    private fun isPreviousSameAuthor(id: String, position: Int): Boolean {
-        val prevPosition = position + 1
-        return if (items.size <= prevPosition) false else items[prevPosition].item is MessageType
-            && (items[prevPosition].item as Message).sender.id.contentEquals(id)
-    }
-
-    private fun incrementSelectedItemsCount() {
+    internal fun incrementSelectedItemsCount() {
         selectedItemsCount++
         notifySelectionChanged()
     }
 
-    private fun decrementSelectedItemsCount() {
+    internal fun decrementSelectedItemsCount() {
         selectedItemsCount--
         isSelectionModeEnabled = selectedItemsCount > 0
         notifySelectionChanged()
@@ -655,7 +587,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     /**
      * Interface definition for a callback to be invoked when next part of messages need to be loaded.
      */
-    interface OnLoadMoreListener {
+    fun interface OnLoadMoreListener {
         /**
          * Fires when user scrolled to the end of list.
          *
@@ -668,7 +600,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     /**
      * Interface definition for a callback to be invoked when selected messages count is changed.
      */
-    interface SelectionListener {
+    fun interface SelectionListener {
         /**
          * Fires when selected items count is changed.
          *
@@ -680,7 +612,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     /**
      * Interface definition for a callback to be invoked when message item is clicked.
      */
-    interface OnMessageClickListener<MESSAGE : MessageType> {
+    fun interface OnMessageClickListener<MESSAGE : MessageType> {
         /**
          * Fires when message is clicked.
          *
@@ -692,7 +624,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     /**
      * Interface definition for a callback to be invoked when message view is clicked.
      */
-    interface OnMessageViewClickListener<MESSAGE : MessageType> {
+    fun interface OnMessageViewClickListener<MESSAGE : MessageType> {
         /**
          * Fires when message view is clicked.
          *
@@ -704,7 +636,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     /**
      * Interface definition for a callback to be invoked when message item is long clicked.
      */
-    interface OnMessageLongClickListener<MESSAGE : MessageType> {
+    fun interface OnMessageLongClickListener<MESSAGE : MessageType> {
         /**
          * Fires when message is long clicked.
          *
@@ -716,7 +648,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     /**
      * Interface definition for a callback to be invoked when message view is long clicked.
      */
-    interface OnMessageViewLongClickListener<MESSAGE : MessageType> {
+    fun interface OnMessageViewLongClickListener<MESSAGE : MessageType> {
         /**
          * Fires when message view is long clicked.
          *
@@ -728,7 +660,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     /**
      * Interface used to format your message model when copying.
      */
-    interface Formatter<MESSAGE> {
+    fun interface Formatter<MESSAGE> {
         /**
          * Formats an string representation of the message object.
          *

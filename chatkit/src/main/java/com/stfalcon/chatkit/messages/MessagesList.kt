@@ -58,9 +58,9 @@ class MessagesList : RecyclerView {
      * Sets adapter for MessagesList
      *
      * @param adapter   Adapter. Must extend MessagesListAdapter
-     * @param <MESSAGE> Message model class
+     * @param <Message> Message model class
      */
-    fun <MESSAGE : MessageType> setAdapter(adapter: MessagesListAdapter<MESSAGE>) {
+    fun <Message : MessageType> setAdapter(adapter: MessagesListAdapter<Message>) {
         setAdapter(adapter, true)
     }
 
@@ -69,10 +69,10 @@ class MessagesList : RecyclerView {
      *
      * @param adapter       Adapter. Must extend MessagesListAdapter
      * @param reverseLayout whether to use reverse layout for layout manager.
-     * @param <MESSAGE>     Message model class
+     * @param <Message>     Message model class
      */
-    fun <MESSAGE : MessageType> setAdapter(
-        adapter: MessagesListAdapter<MESSAGE>,
+    fun <Message : MessageType> setAdapter(
+        adapter: MessagesListAdapter<Message>,
         reverseLayout: Boolean
     ) {
         val itemAnimator: SimpleItemAnimator = DefaultItemAnimator()

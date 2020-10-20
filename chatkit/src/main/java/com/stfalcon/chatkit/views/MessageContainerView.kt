@@ -17,12 +17,14 @@ open class MessageContainerView(
             applyMessageStyle()
         }
 
-    private fun applyMessageStyle() = style.let { style ->
+    internal fun applyMessageStyle() = style.let { style ->
         when (style) {
             MessageStyle.None -> {
                 background = null
             }
-            MessageStyle.Bubble -> TODO()
+            MessageStyle.Bubble -> style.drawableRes()?.let { res ->
+                setBackgroundResource(res)
+            }
             is MessageStyle.BubbleOutline -> TODO()
             is MessageStyle.BubbleTail -> style.drawableRes()?.let { res ->
                 setBackgroundResource(res)

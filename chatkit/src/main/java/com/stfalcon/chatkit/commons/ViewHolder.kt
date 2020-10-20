@@ -32,8 +32,8 @@ abstract class ViewHolder<DATA>(
     abstract fun onBind(data: DATA)
 }
 
-abstract class MessageViewHolder<Message : MessageType, Binding : ViewBinding>(
-    protected open val binding: Binding
-) : RecyclerView.ViewHolder(binding.root) {
+abstract class MessageViewHolder<Message : MessageType>(
+    itemView: View
+) : RecyclerView.ViewHolder(itemView) {
     abstract fun onBind(message: Message)
 }

@@ -104,29 +104,24 @@ public abstract class DemoMessagesActivity extends AppCompatActivity
     }
 
     protected void loadMessages() {
-        new Handler().postDelayed(new Runnable() { //imitation of internet connection
-            @Override
-            public void run() {
-                ArrayList<Message> messages = MessagesFixtures.getMessages(lastLoadedDate);
-                lastLoadedDate = messages.get(messages.size() - 1).getSentDate();
-                messagesAdapter.addToEnd(messages, false);
-            }
+        //imitation of internet connection
+        new Handler().postDelayed(() -> {
+            ArrayList<Message> messages = MessagesFixtures.getMessages(lastLoadedDate);
+            lastLoadedDate = messages.get(messages.size() - 1).getSentDate();
+            messagesAdapter.addToEnd(messages, false);
         }, 1000);
     }
 
     private MessagesListAdapter.Formatter<Message> getMessageStringFormatter() {
-        return new MessagesListAdapter.Formatter<Message>() {
-            @Override
-            public String format(Message message) {
-                String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
-                        .format(message.getSentDate());
+        return message -> {
+            String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
+                    .format(message.getSentDate());
 
-                String text = message.getText();
-                if (text == null) text = "[attachment]";
+            String text = message.getText();
+            if (text == null) text = "[attachment]";
 
-                return String.format(Locale.getDefault(), "%s: %s (%s)",
-                        message.getSender().getName(), text, createdAt);
-            }
+            return String.format(Locale.getDefault(), "%s: %s (%s)",
+                    message.getSender().getName(), text, createdAt);
         };
     }
 }
