@@ -83,8 +83,8 @@ class MessagesList : RecyclerView {
         )
         setItemAnimator(itemAnimator)
         setLayoutManager(layoutManager)
-        adapter.setLayoutManager(layoutManager)
-        adapter.setStyle(messagesListStyle)
+        adapter.layoutManager = layoutManager
+        adapter.messagesListStyle = messagesListStyle
         addOnScrollListener(RecyclerScrollMoreListener(layoutManager, adapter))
         super.setAdapter(adapter)
     }
