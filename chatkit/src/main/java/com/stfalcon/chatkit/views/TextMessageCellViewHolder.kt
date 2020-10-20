@@ -6,6 +6,7 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.stfalcon.chatkit.commons.models.MessageKind
@@ -18,7 +19,9 @@ open class TextMessageCellViewHolder(
     private val binding: MessageContentCellBinding
 ) : MessageContentCellViewHolder(binding) {
 
-    open var messageLabel = TextView(binding.root.context)
+    open var messageLabel = TextView(binding.root.context).also {
+        it.layoutParams = ViewGroup.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+    }
 
     override fun configure(style: MessagesListStyle, adapter: MessagesListAdapter<out MessageType>) {
         super.configure(style, adapter)
