@@ -49,7 +49,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
             0 -> {
                 TextMessageCellViewHolder.inflate(parent.layoutInflater).also { vh ->
                     messagesListStyle?.let {
-                        vh.applyStyle(it, this)
+                        vh.configure(it, this)
                     }
                 }
             }
@@ -61,7 +61,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
 
     override fun onBindViewHolder(holder: MessageContentCellViewHolder, position: Int) {
         val message = messages[position]
-        holder.configure(message, position, this)
+        holder.bind(message, position, this)
         holder.onBind(message)
     }
 

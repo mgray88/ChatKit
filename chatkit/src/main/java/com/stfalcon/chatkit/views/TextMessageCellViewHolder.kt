@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.TextView
-import com.stfalcon.chatkit.R
+import com.stfalcon.chatkit.commons.models.MessageKind
 import com.stfalcon.chatkit.commons.models.MessageType
 import com.stfalcon.chatkit.databinding.MessageContentCellBinding
 import com.stfalcon.chatkit.messages.MessagesListAdapter
@@ -16,12 +16,19 @@ open class TextMessageCellViewHolder(
     private val binding: MessageContentCellBinding
 ) : MessageContentCellViewHolder(binding) {
 
-    override fun applyStyle(style: MessagesListStyle, adapter: MessagesListAdapter<out MessageType>) {
-        super.applyStyle(style, adapter)
+    open var messageLabel = TextView(binding.root.context)
+
+    override fun configure(style: MessagesListStyle, adapter: MessagesListAdapter<out MessageType>) {
+        super.configure(style, adapter)
     }
 
-    override fun configure(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
-        super.configure(message, position, adapter)
+    override fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
+        super.bind(message, position, adapter)
+        when (val kind = message.kind) {
+            is MessageKind.Text -> {
+                messageLabel.text = kind.text
+            }
+        }
     }
 
     companion object {
@@ -31,7 +38,10 @@ open class TextMessageCellViewHolder(
             attachToParent: Boolean = false
         ): TextMessageCellViewHolder {
             val view = MessageContentCellBinding.inflate(inflater, parent, attachToParent)
-            return TextMessageCellViewHolder(view)
+            val vh = TextMessageCellViewHolder(view)
+            vh.messageContainer.addView(vh.messageLabel)
+
+            return vh
         }
     }
 

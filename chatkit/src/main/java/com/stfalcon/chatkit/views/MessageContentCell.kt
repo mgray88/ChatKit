@@ -35,7 +35,7 @@ open class MessageContentCellViewHolder(
 
     open var isSelected = false
 
-    open fun applyStyle(style: MessagesListStyle, adapter: MessagesListAdapter<out MessageType>) {
+    open fun configure(style: MessagesListStyle, adapter: MessagesListAdapter<out MessageType>) {
         styleAvatar(style)
         styleMessageContainer(style)
 
@@ -55,7 +55,7 @@ open class MessageContentCellViewHolder(
         // binding.messageContainer.setOnCreateContextMenuListener()
     }
 
-    open fun configure(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
+    open fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
         val delegate = adapter.messageDisplayDelegate ?: return
 
         // messageContainer.style = delegate.messageStyleFor(message)
