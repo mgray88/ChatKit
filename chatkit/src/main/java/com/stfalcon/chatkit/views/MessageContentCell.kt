@@ -61,9 +61,11 @@ open class MessageContentCellViewHolder(
 
         val params = messageContainer.layoutParams as ConstraintLayout.LayoutParams
         if (message.messageId == adapter.senderId) {
-            params.horizontalBias = 1f
+            params.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
+            params.leftToLeft = ConstraintLayout.LayoutParams.UNSET
         } else {
-            params.horizontalBias = 0f
+            params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+            params.rightToRight = ConstraintLayout.LayoutParams.UNSET
         }
         messageContainer.layoutParams = params
     }
