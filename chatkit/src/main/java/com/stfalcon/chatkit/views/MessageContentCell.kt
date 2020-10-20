@@ -64,6 +64,7 @@ open class MessageContentCellViewHolder(
         } else {
             params.horizontalBias = 0f
         }
+        messageContainer.layoutParams = params
     }
 
     open fun styleAvatar(style: MessagesListStyle) {

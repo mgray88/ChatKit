@@ -6,6 +6,7 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.stfalcon.chatkit.commons.models.MessageKind
 import com.stfalcon.chatkit.commons.models.MessageType
@@ -29,6 +30,7 @@ open class TextMessageCellViewHolder(
         when (val kind = message.kind) {
             is MessageKind.Text -> {
                 messageLabel.text = kind.text
+                messageContainer.invalidate()
             }
         }
     }
