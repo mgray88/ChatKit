@@ -40,23 +40,10 @@ open class MessageContentCellViewHolder(
         styleMessageContainer(style)
 
         binding.root.setOnClickListener {
-            val message = this.message ?: return@setOnClickListener
-            if (adapter.isSelectionModeEnabled) {
-                isSelected = !isSelected
-                if (isSelected) adapter.incrementSelectedItemsCount() else adapter.decrementSelectedItemsCount()
-                adapter.notifyItemChanged(adapter.getMessagePositionById(message.messageId))
-            } else {
-                adapter.messageCellDelegate?.onClick(it)
-            }
+            adapter.messageCellDelegate?.onClick(it)
         }
         binding.root.setOnLongClickListener {
-            val handled = adapter.messageCellDelegate
-                ?.onLongClick(binding.messageContainer) ?: false
-            if (!handled) {
-                adapter.isSelectionModeEnabled = true
-                it.performClick()
-            }
-            true
+            adapter.messageCellDelegate?.onLongClick(binding.messageContainer) ?: false
         }
         binding.messageContainer.setOnClickListener {
             adapter.messageCellDelegate?.onMessageClick(binding.messageContainer)

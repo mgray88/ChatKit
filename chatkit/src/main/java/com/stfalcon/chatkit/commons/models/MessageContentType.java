@@ -17,14 +17,13 @@
 package com.stfalcon.chatkit.commons.models;
 
 import androidx.annotation.Nullable;
-import com.stfalcon.chatkit.messages.MessageHolders;
 
 /*
  * Created by troy379 on 28.03.17.
  */
 
 /**
- * Interface used to mark messages as custom content types. For its representation see {@link MessageHolders}
+ * Interface used to mark messages as custom content types. For its representation see
  */
 
 public interface MessageContentType extends MessageType {
