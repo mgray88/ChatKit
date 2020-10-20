@@ -8,7 +8,7 @@ import android.util.AttributeSet
 import androidx.annotation.ColorRes
 import androidx.annotation.FontRes
 
-open class AvatarView(
+open class AvatarView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defaultStyle: Int = 0
