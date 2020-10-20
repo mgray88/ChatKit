@@ -27,9 +27,7 @@ open class MessageContentCellViewHolder(
 
     open var messageTopLabel: TextView = binding.messageTopLabel
 
-    open var messageContainerLeft: MessageContainerView = binding.messageContainerLeft
-
-    open var messageContainerRight: MessageContainerView = binding.messageContainerRight
+    open var messageContainer: MessageContainerView = binding.messageContainer
 
     open var messageBottomLabel: TextView = binding.messageBottomLabel
 
@@ -37,22 +35,32 @@ open class MessageContentCellViewHolder(
 
     open var isSelected = false
 
-    open fun configure(style: MessagesListStyle, adapter: MessagesListAdapter<out MessageType>) {
+    open fun configure(style: MessagesListStyle, adapter: MessagesListAdapter<out MessageType>, currentSender: Boolean) {
         styleAvatar(style)
         styleMessageContainer(style)
+
+        val params = messageContainer.layoutParams as ConstraintLayout.LayoutParams
+        if (currentSender) {
+            params.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
+            params.leftToLeft = ConstraintLayout.LayoutParams.UNSET
+        } else {
+            params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+            params.rightToRight = ConstraintLayout.LayoutParams.UNSET
+        }
+        messageContainer.layoutParams = params
 
         binding.root.setOnClickListener {
             adapter.messageCellDelegate.onCellClick(it)
         }
-        // binding.root.setOnLongClickListener {
-        //     adapter.messageCellDelegate.onCellLongClick(binding.messageContainer)
-        // }
-        // binding.messageContainer.setOnClickListener {
-        //     adapter.messageCellDelegate.onMessageClick(binding.messageContainer)
-        // }
-        // binding.messageContainer.setOnLongClickListener {
-        //     adapter.messageCellDelegate.onMessageLongClick(binding.messageContainer)
-        // }
+        binding.root.setOnLongClickListener {
+            adapter.messageCellDelegate.onCellLongClick(binding.messageContainer)
+        }
+        binding.messageContainer.setOnClickListener {
+            adapter.messageCellDelegate.onMessageClick(binding.messageContainer)
+        }
+        binding.messageContainer.setOnLongClickListener {
+            adapter.messageCellDelegate.onMessageLongClick(binding.messageContainer)
+        }
 
         // binding.messageContainer.setOnCreateContextMenuListener()
     }
@@ -60,21 +68,13 @@ open class MessageContentCellViewHolder(
     override fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
         val delegate = adapter.messageDisplayDelegate
         val style = adapter.messagesListStyle
-
-        if (message.sender.id == adapter.senderId) {
-            messageContainerLeft.visibility = View.GONE
-            messageContainerRight.visibility = View.VISIBLE
-        } else {
-            messageContainerLeft.visibility = View.VISIBLE
-            messageContainerRight.visibility = View.GONE
-        }
     }
 
     open fun styleAvatar(style: MessagesListStyle) {
     }
 
     open fun styleMessageContainer(style: MessagesListStyle) {
-        messageContainerLeft.style = MessageStyle.Bubble // TODO
+        messageContainer.style = MessageStyle.Bubble // TODO
     }
 }
 

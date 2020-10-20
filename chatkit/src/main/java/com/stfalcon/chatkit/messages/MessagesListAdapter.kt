@@ -46,10 +46,10 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageContentCellViewHolder {
         return when (viewType) {
-            0 -> {
+            1, -1 -> {
                 TextMessageCellViewHolder.inflate(parent.layoutInflater).also { vh ->
                     messagesListStyle?.let {
-                        vh.configure(it, this)
+                        vh.configure(it, this, viewType < 0)
                     }
                 }
             }
@@ -69,7 +69,12 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return messages[position].kind.viewType
+        val message = messages[position]
+        return if (message.sender.id == senderId) {
+            message.kind.viewType * -1
+        } else {
+            message.kind.viewType
+        }
     }
 
     override fun onLoadMore(page: Int, total: Int) {

@@ -22,8 +22,8 @@ open class TextMessageCellViewHolder(
         it.layoutParams = ViewGroup.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
     }
 
-    override fun configure(style: MessagesListStyle, adapter: MessagesListAdapter<out MessageType>) {
-        super.configure(style, adapter)
+    override fun configure(style: MessagesListStyle, adapter: MessagesListAdapter<out MessageType>, currentSender: Boolean) {
+        super.configure(style, adapter, currentSender)
         messageLabel.setTextColor(Color.WHITE)
     }
 
@@ -32,6 +32,7 @@ open class TextMessageCellViewHolder(
         when (val kind = message.kind) {
             is MessageKind.Text -> {
                 messageLabel.text = kind.text
+                messageContainer.invalidate()
             }
         }
     }
@@ -44,8 +45,7 @@ open class TextMessageCellViewHolder(
         ): TextMessageCellViewHolder {
             val view = MessageContentCellBinding.inflate(inflater, parent, attachToParent)
             val vh = TextMessageCellViewHolder(view)
-            vh.messageContainerLeft.addView(vh.messageLabel)
-            vh.messageContainerRight.addView(vh.messageLabel)
+            vh.messageContainer.addView(vh.messageLabel)
 
             return vh
         }

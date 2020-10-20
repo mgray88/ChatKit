@@ -14,9 +14,9 @@ sealed class MessageKind {
 
     internal val viewType: Int
         get() = when (this) {
-            is Text -> 0
-            is SpannedText -> 1
-            is Photo -> 2
-            is Emoji -> 3
+            is Text -> 1
+            is SpannedText -> 2
+            is Photo -> 3
+            is Emoji -> 4
         }
 }
