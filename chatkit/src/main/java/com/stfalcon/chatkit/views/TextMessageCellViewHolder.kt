@@ -30,8 +30,8 @@ open class TextMessageCellViewHolder(
             parent: ViewGroup? = null,
             attachToParent: Boolean = false
         ): TextMessageCellViewHolder {
-            val view = inflater.inflate(R.layout.message_content_cell, parent, attachToParent)
-            TODO()
+            val view = MessageContentCellBinding.inflate(inflater, parent, attachToParent)
+            return TextMessageCellViewHolder(view)
         }
     }
 
