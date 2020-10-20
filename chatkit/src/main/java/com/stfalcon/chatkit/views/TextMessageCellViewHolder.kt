@@ -1,5 +1,6 @@
 package com.stfalcon.chatkit.views
 
+import android.graphics.Color
 import android.text.Spannable
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ open class TextMessageCellViewHolder(
 
     override fun configure(style: MessagesListStyle, adapter: MessagesListAdapter<out MessageType>) {
         super.configure(style, adapter)
+        messageLabel.setTextColor(Color.WHITE)
     }
 
     override fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
