@@ -39,10 +39,10 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
 
     open var messageCellDelegate: MessageCellDelegate = MessageCellDelegate()
     open var messageDisplayDelegate: MessageDisplayDelegate = MessageDisplayDelegate()
+    open var layoutManager: RecyclerView.LayoutManager? = null
+    open var messagesListStyle: MessagesListStyle? = null
 
     private var loadMoreListener: OnLoadMoreListener? = null
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var messagesListStyle: MessagesListStyle? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageContentCellViewHolder {
         return when (viewType) {
@@ -193,14 +193,6 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
 
     internal fun getMessagePositionById(id: String): Int {
         return messages.indexOfFirst { it.messageId == id }
-    }
-
-    fun setLayoutManager(layoutManager: RecyclerView.LayoutManager?) {
-        this.layoutManager = layoutManager
-    }
-
-    fun setStyle(style: MessagesListStyle?) {
-        messagesListStyle = style
     }
 
     /*
