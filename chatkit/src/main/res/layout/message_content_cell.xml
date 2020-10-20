@@ -34,10 +34,20 @@
         />
 
     <com.stfalcon.chatkit.views.MessageContainerView
-        android:id="@+id/message_container"
+        android:id="@+id/message_container_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/message_top_label"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:paddingLeft="40dp"
+        />
+
+    <com.stfalcon.chatkit.views.MessageContainerView
+        android:id="@+id/message_container_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/message_top_label"
+        app:layout_constraintRight_toRightOf="parent"
         tools:paddingLeft="40dp"
         />
 
@@ -45,7 +55,7 @@
         android:id="@+id/message_bottom_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/message_container"
+        app:layout_constraintTop_toBottomOf="@id/message_container_left"
         tools:text="Message Bottom Label"
         tools:paddingLeft="40dp"
         />

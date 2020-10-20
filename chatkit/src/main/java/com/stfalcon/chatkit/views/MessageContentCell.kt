@@ -27,7 +27,9 @@ open class MessageContentCellViewHolder(
 
     open var messageTopLabel: TextView = binding.messageTopLabel
 
-    open var messageContainer: MessageContainerView = binding.messageContainer
+    open var messageContainerLeft: MessageContainerView = binding.messageContainerLeft
+
+    open var messageContainerRight: MessageContainerView = binding.messageContainerRight
 
     open var messageBottomLabel: TextView = binding.messageBottomLabel
 
@@ -42,15 +44,15 @@ open class MessageContentCellViewHolder(
         binding.root.setOnClickListener {
             adapter.messageCellDelegate.onCellClick(it)
         }
-        binding.root.setOnLongClickListener {
-            adapter.messageCellDelegate.onCellLongClick(binding.messageContainer)
-        }
-        binding.messageContainer.setOnClickListener {
-            adapter.messageCellDelegate.onMessageClick(binding.messageContainer)
-        }
-        binding.messageContainer.setOnLongClickListener {
-            adapter.messageCellDelegate.onMessageLongClick(binding.messageContainer)
-        }
+        // binding.root.setOnLongClickListener {
+        //     adapter.messageCellDelegate.onCellLongClick(binding.messageContainer)
+        // }
+        // binding.messageContainer.setOnClickListener {
+        //     adapter.messageCellDelegate.onMessageClick(binding.messageContainer)
+        // }
+        // binding.messageContainer.setOnLongClickListener {
+        //     adapter.messageCellDelegate.onMessageLongClick(binding.messageContainer)
+        // }
 
         // binding.messageContainer.setOnCreateContextMenuListener()
     }
@@ -59,22 +61,20 @@ open class MessageContentCellViewHolder(
         val delegate = adapter.messageDisplayDelegate
         val style = adapter.messagesListStyle
 
-        val params = messageContainer.layoutParams as ConstraintLayout.LayoutParams
-        if (message.messageId == adapter.senderId) {
-            params.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
-            params.leftToLeft = ConstraintLayout.LayoutParams.UNSET
+        if (message.sender.id == adapter.senderId) {
+            messageContainerLeft.visibility = View.GONE
+            messageContainerRight.visibility = View.VISIBLE
         } else {
-            params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-            params.rightToRight = ConstraintLayout.LayoutParams.UNSET
+            messageContainerLeft.visibility = View.VISIBLE
+            messageContainerRight.visibility = View.GONE
         }
-        messageContainer.layoutParams = params
     }
 
     open fun styleAvatar(style: MessagesListStyle) {
     }
 
     open fun styleMessageContainer(style: MessagesListStyle) {
-        messageContainer.style = MessageStyle.Bubble // TODO
+        messageContainerLeft.style = MessageStyle.Bubble // TODO
     }
 }
 

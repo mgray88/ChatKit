@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.RelativeLayout
 import android.widget.TextView
 import com.stfalcon.chatkit.commons.models.MessageKind
 import com.stfalcon.chatkit.commons.models.MessageType
@@ -33,7 +32,6 @@ open class TextMessageCellViewHolder(
         when (val kind = message.kind) {
             is MessageKind.Text -> {
                 messageLabel.text = kind.text
-                messageContainer.invalidate()
             }
         }
     }
@@ -46,7 +44,8 @@ open class TextMessageCellViewHolder(
         ): TextMessageCellViewHolder {
             val view = MessageContentCellBinding.inflate(inflater, parent, attachToParent)
             val vh = TextMessageCellViewHolder(view)
-            vh.messageContainer.addView(vh.messageLabel)
+            vh.messageContainerLeft.addView(vh.messageLabel)
+            vh.messageContainerRight.addView(vh.messageLabel)
 
             return vh
         }
