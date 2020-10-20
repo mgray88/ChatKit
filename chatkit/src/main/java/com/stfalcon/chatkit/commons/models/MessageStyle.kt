@@ -30,7 +30,7 @@ sealed class MessageStyle {
     @DrawableRes
     public fun drawableRes(): Int? = when (this) {
         None -> null
-        Bubble -> R.drawable.bubble_tail_pointed // TODO
+        Bubble -> R.drawable.bubble // TODO
         is BubbleOutline -> TODO()
         is BubbleTail -> {
             when (style) {

@@ -35,7 +35,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     protected val senderId: String,
     protected val imageLoader: ImageLoader? = null,
 ) : RecyclerView.Adapter<MessageContentCellViewHolder>(), RecyclerScrollMoreListener.OnLoadMoreListener {
-    protected val messages = mutableListOf<Message>()
+    val messages = mutableListOf<Message>()
 
     open var messageCellDelegate: MessageCellDelegate = MessageCellDelegate()
     open var messageDisplayDelegate: MessageDisplayDelegate = MessageDisplayDelegate()
