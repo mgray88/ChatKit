@@ -22,18 +22,13 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.stfalcon.chatkit.commons.models.MessageType
+import com.stfalcon.chatkit.messages.MessagesListAdapter
 
 /**
  * Base ViewHolder
  */
-abstract class ViewHolder<DATA>(
-    itemView: View
-) : RecyclerView.ViewHolder(itemView) {
-    abstract fun onBind(data: DATA)
-}
-
 abstract class MessageViewHolder<Message : MessageType>(
     itemView: View
 ) : RecyclerView.ViewHolder(itemView) {
-    abstract fun onBind(message: Message)
+    abstract fun bind(message: Message, position: Int, adapter: MessagesListAdapter<out Message>)
 }

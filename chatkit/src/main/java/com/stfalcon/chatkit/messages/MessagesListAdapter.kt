@@ -32,7 +32,7 @@ import com.stfalcon.chatkit.views.layoutInflater
  * Adapter for [MessagesList].
  */
 open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
-    protected val senderId: String,
+    internal val senderId: String,
     protected val imageLoader: ImageLoader? = null,
 ) : RecyclerView.Adapter<MessageContentCellViewHolder>(), RecyclerScrollMoreListener.OnLoadMoreListener {
     val messages = mutableListOf<Message>()
@@ -62,7 +62,6 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     override fun onBindViewHolder(holder: MessageContentCellViewHolder, position: Int) {
         val message = messages[position]
         holder.bind(message, position, this)
-        holder.onBind(message)
     }
 
     override fun getItemCount(): Int {
@@ -71,7 +70,6 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
 
     override fun getItemViewType(position: Int): Int {
         return messages[position].kind.viewType
-        // return holders.getViewType(items[position].item, senderId)
     }
 
     override fun onLoadMore(page: Int, total: Int) {
@@ -209,19 +207,6 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
          * @param totalItemsCount current items count.
          */
         fun onLoadMore(page: Int, totalItemsCount: Int)
-    }
-
-    /**
-     * Interface used to format your message model when copying.
-     */
-    fun interface Formatter<MESSAGE> {
-        /**
-         * Formats an string representation of the message object.
-         *
-         * @param message The object that should be formatted.
-         * @return Formatted text.
-         */
-        fun format(message: MESSAGE): String?
     }
 
     companion object {

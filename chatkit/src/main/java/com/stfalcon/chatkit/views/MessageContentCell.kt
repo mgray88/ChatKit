@@ -55,15 +55,15 @@ open class MessageContentCellViewHolder(
         // binding.messageContainer.setOnCreateContextMenuListener()
     }
 
-    open fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
-        val delegate = adapter.messageDisplayDelegate ?: return
+    override fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
+        val delegate = adapter.messageDisplayDelegate
 
-        // messageContainer.style = delegate.messageStyleFor(message)
-    }
-
-    override fun onBind(message: MessageType) {
-        this.message = message
-        // TODO
+        val params = messageContainer.layoutParams as ConstraintLayout.LayoutParams
+        if (message.messageId == adapter.senderId) {
+            params.horizontalBias = 1f
+        } else {
+            params.horizontalBias = 0f
+        }
     }
 
     open fun styleAvatar(style: MessagesListStyle) {
