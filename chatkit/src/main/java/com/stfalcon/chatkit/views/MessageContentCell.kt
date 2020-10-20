@@ -57,6 +57,7 @@ open class MessageContentCellViewHolder(
 
     override fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
         val delegate = adapter.messageDisplayDelegate
+        val style = adapter.messagesListStyle
 
         val params = messageContainer.layoutParams as ConstraintLayout.LayoutParams
         if (message.messageId == adapter.senderId) {
