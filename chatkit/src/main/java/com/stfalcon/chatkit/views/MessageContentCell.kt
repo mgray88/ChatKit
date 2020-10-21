@@ -68,6 +68,18 @@ open class MessageContentCellViewHolder(
     override fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
         val delegate = adapter.messageDisplayDelegate
         val style = adapter.messagesListStyle
+
+        if (message.sender.id == adapter.senderId) {
+            messageContainer.style = MessageStyle.BubbleTail(
+                MessageStyle.TailCorner.BottomRight,
+                MessageStyle.TailStyle.Pointed
+            )
+        } else {
+            messageContainer.style = MessageStyle.BubbleTail(
+                MessageStyle.TailCorner.BottomLeft,
+                MessageStyle.TailStyle.Pointed
+            )
+        }
     }
 
     open fun styleAvatar(style: MessagesListStyle) {

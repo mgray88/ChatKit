@@ -47,7 +47,7 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageContentCellViewHolder {
         return when (viewType) {
             1, -1 -> {
-                TextMessageCellViewHolder.inflate(parent.layoutInflater).also { vh ->
+                TextMessageCellViewHolder.inflate(parent.layoutInflater, parent).also { vh ->
                     messagesListStyle?.let {
                         vh.configure(it, this, viewType < 0)
                     }

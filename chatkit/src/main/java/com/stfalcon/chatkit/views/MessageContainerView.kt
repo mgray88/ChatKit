@@ -26,8 +26,8 @@ open class MessageContainerView @JvmOverloads constructor(
                 setBackgroundResource(res)
             }
             is MessageStyle.BubbleOutline -> TODO()
-            is MessageStyle.BubbleTail -> style.drawableRes()?.let { res ->
-                setBackgroundResource(res)
+            is MessageStyle.BubbleTail -> style.drawable(context)?.let { drawable ->
+                background = drawable
             }
             is MessageStyle.BubbleTailOutline -> TODO()
             is MessageStyle.Custom -> {
