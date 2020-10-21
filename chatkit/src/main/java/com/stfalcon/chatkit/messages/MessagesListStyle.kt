@@ -246,7 +246,7 @@ class MessagesListStyle private constructor(
                 style.getDimension(R.dimen.message_avatar_height)
             )
             style.incomingAvatarPosition = when (typedArray.getInt(
-                R.styleable.MessagesList_incomingAvatarPosition, 0
+                R.styleable.MessagesList_incomingAvatarPosition, 3
             )) {
                 0 -> AvatarPosition(AvatarPosition.Vertical.CellTop)
                 1 -> AvatarPosition(AvatarPosition.Vertical.MessageLabelTop)

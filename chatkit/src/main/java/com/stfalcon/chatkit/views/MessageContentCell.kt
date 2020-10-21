@@ -60,6 +60,8 @@ open class MessageContentCellViewHolder(
     override fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
         val delegate = adapter.messageDisplayDelegate
         val style = adapter.messagesListStyle
+
+        delegate.configureAvatarView(avatar, message, position)
     }
 
     open fun styleAvatar(style: MessagesListStyle, currentSender: Boolean) {
@@ -119,7 +121,7 @@ open class MessageContentCellViewHolder(
             )
 
         } else {
-            params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+            params.startToEnd = R.id.avatar
             params.leftToRight = ConstraintLayout.LayoutParams.UNSET
             params.horizontalBias = 0f
             params.endToStart = R.id.right_guideline
