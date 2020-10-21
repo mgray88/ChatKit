@@ -23,7 +23,7 @@ open class MessageContentCellViewHolder(
 
     override fun getRoot(): ConstraintLayout = binding.root
 
-    open var avatar: AvatarView = binding.avatar
+    open var avatar: TextView = binding.avatar
 
     open var cellTopLabel: TextView = binding.cellTopLabel
 
