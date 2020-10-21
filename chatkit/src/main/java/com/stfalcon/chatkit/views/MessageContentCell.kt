@@ -68,7 +68,7 @@ open class MessageContentCellViewHolder(
         val params = messageContainer.layoutParams as ConstraintLayout.LayoutParams
         if (currentSender) {
             params.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
-            params.leftToLeft = ConstraintLayout.LayoutParams.UNSET
+            params.leftToLeft = R.id.left_guideline
 
             messageContainer.background = style.getOutgoingBubbleDrawable()
             messageContainer.setPadding(
@@ -79,7 +79,7 @@ open class MessageContentCellViewHolder(
             )
         } else {
             params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-            params.rightToRight = ConstraintLayout.LayoutParams.UNSET
+            params.rightToRight = R.id.right_guideline
 
             messageContainer.background = style.getIncomingBubbleDrawable()
             messageContainer.setPadding(
