@@ -8,11 +8,11 @@ import androidx.core.content.getSystemService
 import androidx.viewbinding.ViewBinding
 import com.stfalcon.chatkit.R
 import com.stfalcon.chatkit.commons.MessageViewHolder
-import com.stfalcon.chatkit.commons.models.MessageStyle
 import com.stfalcon.chatkit.commons.models.MessageType
 import com.stfalcon.chatkit.databinding.MessageContentCellBinding
 import com.stfalcon.chatkit.messages.MessagesListAdapter
 import com.stfalcon.chatkit.messages.MessagesListStyle
+import com.stfalcon.chatkit.utils.dp
 
 open class MessageContentCellViewHolder(
     private val binding: MessageContentCellBinding
@@ -71,11 +71,13 @@ open class MessageContentCellViewHolder(
             params.leftToLeft = ConstraintLayout.LayoutParams.UNSET
 
             messageContainer.setBackgroundResource(R.drawable.shape_outgoing_message)
+            messageContainer.setPadding(15.dp, 10.dp, 10.dp, 10.dp)
         } else {
             params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
             params.rightToRight = ConstraintLayout.LayoutParams.UNSET
 
             messageContainer.setBackgroundResource(R.drawable.shape_incoming_message)
+            messageContainer.setPadding(10.dp, 10.dp, 15.dp, 10.dp)
         }
         messageContainer.layoutParams = params
     }
