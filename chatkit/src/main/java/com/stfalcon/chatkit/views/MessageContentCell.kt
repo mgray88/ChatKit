@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.getSystemService
 import androidx.viewbinding.ViewBinding
+import com.stfalcon.chatkit.R
 import com.stfalcon.chatkit.commons.MessageViewHolder
 import com.stfalcon.chatkit.commons.models.MessageStyle
 import com.stfalcon.chatkit.commons.models.MessageType
@@ -70,15 +71,9 @@ open class MessageContentCellViewHolder(
         val style = adapter.messagesListStyle
 
         if (message.sender.id == adapter.senderId) {
-            messageContainer.style = MessageStyle.BubbleTail(
-                MessageStyle.TailCorner.BottomRight,
-                MessageStyle.TailStyle.Pointed
-            )
+            messageContainer.setBackgroundResource(R.drawable.shape_outgoing_message)
         } else {
-            messageContainer.style = MessageStyle.BubbleTail(
-                MessageStyle.TailCorner.BottomLeft,
-                MessageStyle.TailStyle.Pointed
-            )
+            messageContainer.setBackgroundResource(R.drawable.shape_incoming_message)
         }
     }
 
@@ -86,7 +81,6 @@ open class MessageContentCellViewHolder(
     }
 
     open fun styleMessageContainer(style: MessagesListStyle) {
-        messageContainer.style = MessageStyle.Bubble // TODO
     }
 }
 
