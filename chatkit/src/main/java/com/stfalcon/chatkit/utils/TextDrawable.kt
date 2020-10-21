@@ -39,9 +39,10 @@ import android.graphics.drawable.shapes.RoundRectShape
  * SOFTWARE.
  */
 class TextDrawable private constructor(builder: Builder) : ShapeDrawable(builder.shape) {
+    var text: String
+
     private val textPaint: Paint
     private val borderPaint: Paint
-    private val text: String
     private val color: Int
     private val shape: RectShape
     private val height: Int

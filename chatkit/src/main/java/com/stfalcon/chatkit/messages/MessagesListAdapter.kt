@@ -24,6 +24,7 @@ import com.stfalcon.chatkit.commons.ImageLoader
 import com.stfalcon.chatkit.commons.models.MessageType
 import com.stfalcon.chatkit.interfaces.MessageCellDelegate
 import com.stfalcon.chatkit.interfaces.MessageDisplayDelegate
+import com.stfalcon.chatkit.interfaces.MessageLayoutDelegate
 import com.stfalcon.chatkit.views.MessageContentCellViewHolder
 import com.stfalcon.chatkit.views.TextMessageCellViewHolder
 import com.stfalcon.chatkit.views.layoutInflater
@@ -37,8 +38,9 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
 ) : RecyclerView.Adapter<MessageContentCellViewHolder>(), RecyclerScrollMoreListener.OnLoadMoreListener {
     val messages = mutableListOf<Message>()
 
-    open var messageCellDelegate: MessageCellDelegate = MessageCellDelegate()
-    open var messageDisplayDelegate: MessageDisplayDelegate = MessageDisplayDelegate()
+    open var messageCellDelegate = MessageCellDelegate()
+    open var messageDisplayDelegate = MessageDisplayDelegate()
+    open var messageLayoutDelegate = MessageLayoutDelegate()
     open var layoutManager: RecyclerView.LayoutManager? = null
     open var messagesListStyle: MessagesListStyle? = null
 

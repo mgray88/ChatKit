@@ -60,8 +60,25 @@ open class MessageContentCellViewHolder(
     override fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
         val delegate = adapter.messageDisplayDelegate
         val style = adapter.messagesListStyle
+        val layoutDelegate = adapter.messageLayoutDelegate
 
         delegate.configureAvatarView(avatar, message, position)
+
+        run {
+            val cellTopLabelHeight = layoutDelegate.cellTopLabelHeight(message, position)
+            val params = cellTopLabel.layoutParams
+            params.height = cellTopLabelHeight
+            cellTopLabel.layoutParams = params
+        }
+        run {
+            val cellBottomLabelHeight = layoutDelegate.cellBottomLabelHeight(message, position)
+            val params = cellBottomLabel.layoutParams
+            params.height = cellBottomLabelHeight
+            cellBottomLabel.layoutParams = params
+        }
+        run {
+
+        }
     }
 
     open fun styleAvatar(style: MessagesListStyle, currentSender: Boolean) {
