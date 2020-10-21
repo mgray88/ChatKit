@@ -2,11 +2,14 @@ package com.stfalcon.chatkit.views
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.annotation.ColorRes
 import androidx.annotation.FontRes
+import com.stfalcon.chatkit.utils.TextDrawable
+import com.stfalcon.chatkit.utils.sp
 
 open class AvatarView @JvmOverloads constructor(
     context: Context,
@@ -39,6 +42,13 @@ open class AvatarView @JvmOverloads constructor(
     }
 
     private fun getDrawableFrom(initials: String): Drawable {
-        TODO()
+        return TextDrawable.builder()
+            .beginConfig()
+            .width(width)
+            .height(height)
+            .fontSize(20.sp)
+            .textColor(Color.WHITE)
+            .endConfig()
+            .buildRound(initials, Color.GRAY)
     }
 }
