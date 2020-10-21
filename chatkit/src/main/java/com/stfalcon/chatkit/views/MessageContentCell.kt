@@ -67,8 +67,10 @@ open class MessageContentCellViewHolder(
     open fun styleMessageContainer(style: MessagesListStyle, currentSender: Boolean) {
         val params = messageContainer.layoutParams as ConstraintLayout.LayoutParams
         if (currentSender) {
-            params.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
-            params.leftToLeft = R.id.left_guideline
+            params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
+            params.rightToLeft = ConstraintLayout.LayoutParams.UNSET
+            params.horizontalBias = 1f
+            params.startToEnd = R.id.left_guideline
 
             messageContainer.background = style.getOutgoingBubbleDrawable()
             messageContainer.setPadding(
@@ -77,9 +79,12 @@ open class MessageContentCellViewHolder(
                 style.outgoingDefaultBubblePaddingRight,
                 style.outgoingDefaultBubblePaddingBottom
             )
+
         } else {
-            params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-            params.rightToRight = R.id.right_guideline
+            params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+            params.leftToRight = ConstraintLayout.LayoutParams.UNSET
+            params.horizontalBias = 0f
+            params.endToStart = R.id.right_guideline
 
             messageContainer.background = style.getIncomingBubbleDrawable()
             messageContainer.setPadding(
