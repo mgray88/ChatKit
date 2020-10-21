@@ -37,18 +37,8 @@ open class MessageContentCellViewHolder(
     open var isSelected = false
 
     open fun configure(style: MessagesListStyle, adapter: MessagesListAdapter<out MessageType>, currentSender: Boolean) {
-        styleAvatar(style)
-        styleMessageContainer(style)
-
-        val params = messageContainer.layoutParams as ConstraintLayout.LayoutParams
-        if (currentSender) {
-            params.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
-            params.leftToLeft = ConstraintLayout.LayoutParams.UNSET
-        } else {
-            params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-            params.rightToRight = ConstraintLayout.LayoutParams.UNSET
-        }
-        messageContainer.layoutParams = params
+        styleAvatar(style, currentSender)
+        styleMessageContainer(style, currentSender)
 
         binding.root.setOnClickListener {
             adapter.messageCellDelegate.onCellClick(it)
@@ -69,18 +59,25 @@ open class MessageContentCellViewHolder(
     override fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
         val delegate = adapter.messageDisplayDelegate
         val style = adapter.messagesListStyle
+    }
 
-        if (message.sender.id == adapter.senderId) {
+    open fun styleAvatar(style: MessagesListStyle, currentSender: Boolean) {
+    }
+
+    open fun styleMessageContainer(style: MessagesListStyle, currentSender: Boolean) {
+        val params = messageContainer.layoutParams as ConstraintLayout.LayoutParams
+        if (currentSender) {
+            params.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
+            params.leftToLeft = ConstraintLayout.LayoutParams.UNSET
+
             messageContainer.setBackgroundResource(R.drawable.shape_outgoing_message)
         } else {
+            params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+            params.rightToRight = ConstraintLayout.LayoutParams.UNSET
+
             messageContainer.setBackgroundResource(R.drawable.shape_incoming_message)
         }
-    }
-
-    open fun styleAvatar(style: MessagesListStyle) {
-    }
-
-    open fun styleMessageContainer(style: MessagesListStyle) {
+        messageContainer.layoutParams = params
     }
 }
 
