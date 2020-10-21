@@ -8,6 +8,7 @@ import androidx.core.content.getSystemService
 import androidx.viewbinding.ViewBinding
 import com.stfalcon.chatkit.R
 import com.stfalcon.chatkit.commons.MessageViewHolder
+import com.stfalcon.chatkit.commons.models.AvatarPosition
 import com.stfalcon.chatkit.commons.models.MessageType
 import com.stfalcon.chatkit.databinding.MessageContentCellBinding
 import com.stfalcon.chatkit.messages.MessagesListAdapter
@@ -62,6 +63,43 @@ open class MessageContentCellViewHolder(
     }
 
     open fun styleAvatar(style: MessagesListStyle, currentSender: Boolean) {
+        if (currentSender) {
+        } else {
+            val params = avatar.layoutParams as ConstraintLayout.LayoutParams
+            val width = style.incomingAvatarWidth
+            val height = style.incomingAvatarHeight
+            if (width > 0 && height > 0) {
+                params.width = width
+                params.height = height
+
+                when (style.incomingAvatarPosition.vertical) {
+                    AvatarPosition.Vertical.CellTop -> {
+                        params.topToTop = R.id.cell_top_label
+                    }
+                    AvatarPosition.Vertical.MessageLabelTop -> {
+                        params.topToTop = R.id.message_top_label
+                    }
+                    AvatarPosition.Vertical.MessageTop -> {
+                        params.topToTop = R.id.message_container
+                    }
+                    AvatarPosition.Vertical.MessageCenter -> {
+                        params.topToTop = R.id.message_container
+                        params.bottomToBottom = R.id.message_container
+                    }
+                    AvatarPosition.Vertical.MessageBottom -> {
+                        params.bottomToBottom = R.id.message_container
+                    }
+                    AvatarPosition.Vertical.MessageLabelBottom -> {
+                        params.bottomToBottom = R.id.message_bottom_label
+                    }
+                    AvatarPosition.Vertical.CellBottom -> {
+                        params.bottomToBottom = R.id.cell_bottom_label
+                    }
+                }
+
+                avatar.layoutParams = params
+            }
+        }
     }
 
     open fun styleMessageContainer(style: MessagesListStyle, currentSender: Boolean) {

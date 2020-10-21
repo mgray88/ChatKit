@@ -29,6 +29,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.DrawableCompat
 import com.stfalcon.chatkit.R
 import com.stfalcon.chatkit.commons.Style
+import com.stfalcon.chatkit.commons.models.AvatarPosition
 import com.stfalcon.chatkit.commons.models.MessageStyle
 
 /**
@@ -43,6 +44,7 @@ class MessagesListStyle private constructor(
     var outgoingTextLinkColor = 0
     var incomingAvatarWidth = 0
     var incomingAvatarHeight = 0
+    var incomingAvatarPosition = AvatarPosition(AvatarPosition.Vertical.MessageCenter)
     var incomingDefaultBubblePaddingLeft = 0
     var incomingDefaultBubblePaddingRight = 0
     var incomingDefaultBubblePaddingTop = 0
@@ -243,6 +245,19 @@ class MessagesListStyle private constructor(
                 R.styleable.MessagesList_incomingAvatarHeight,
                 style.getDimension(R.dimen.message_avatar_height)
             )
+            style.incomingAvatarPosition = when (typedArray.getInt(
+                R.styleable.MessagesList_incomingAvatarPosition, 0
+            )) {
+                0 -> AvatarPosition(AvatarPosition.Vertical.CellTop)
+                1 -> AvatarPosition(AvatarPosition.Vertical.MessageLabelTop)
+                2 -> AvatarPosition(AvatarPosition.Vertical.MessageTop)
+                3 -> AvatarPosition(AvatarPosition.Vertical.MessageCenter)
+                4 -> AvatarPosition(AvatarPosition.Vertical.MessageBottom)
+                5 -> AvatarPosition(AvatarPosition.Vertical.MessageLabelBottom)
+                6 -> AvatarPosition(AvatarPosition.Vertical.CellBottom)
+                else -> AvatarPosition(AvatarPosition.Vertical.MessageCenter)
+            }
+
             style.incomingBubbleStyleRaw =
                 typedArray.getInt(R.styleable.MessagesList_incomingBubbleStyle, 0)
             style.incomingBubbleStyleTailCorner =
