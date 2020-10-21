@@ -71,13 +71,24 @@ open class MessageContentCellViewHolder(
             params.leftToLeft = ConstraintLayout.LayoutParams.UNSET
 
             messageContainer.setBackgroundResource(R.drawable.shape_outgoing_message)
-            messageContainer.setPadding(15.dp, 10.dp, 10.dp, 10.dp)
+            messageContainer.background = style.getOutgoingBubbleDrawable()
+            messageContainer.setPadding(
+                style.outgoingDefaultBubblePaddingLeft,
+                style.outgoingDefaultBubblePaddingTop,
+                style.outgoingDefaultBubblePaddingRight,
+                style.outgoingDefaultBubblePaddingBottom
+            )
         } else {
             params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
             params.rightToRight = ConstraintLayout.LayoutParams.UNSET
 
-            messageContainer.setBackgroundResource(R.drawable.shape_incoming_message)
-            messageContainer.setPadding(10.dp, 10.dp, 15.dp, 10.dp)
+            messageContainer.background = style.getIncomingBubbleDrawable()
+            messageContainer.setPadding(
+                style.incomingDefaultBubblePaddingLeft,
+                style.incomingDefaultBubblePaddingTop,
+                style.incomingDefaultBubblePaddingRight,
+                style.incomingDefaultBubblePaddingBottom
+            )
         }
         messageContainer.layoutParams = params
     }
