@@ -24,7 +24,8 @@ open class TextMessageCellViewHolder(
 
     override fun configure(style: MessagesListStyle, adapter: MessagesListAdapter<out MessageType>, currentSender: Boolean) {
         super.configure(style, adapter, currentSender)
-        messageLabel.setTextColor(Color.WHITE)
+
+        styleMessageLabel(style, currentSender)
     }
 
     override fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
@@ -48,6 +49,14 @@ open class TextMessageCellViewHolder(
             vh.messageContainer.addView(vh.messageLabel)
 
             return vh
+        }
+    }
+
+    open fun styleMessageLabel(style: MessagesListStyle, currentSender: Boolean) {
+        if (currentSender) {
+            messageLabel.setTextColor(style.outgoingTextColor)
+        } else {
+            messageLabel.setTextColor(style.incomingTextColor)
         }
     }
 
