@@ -65,6 +65,16 @@
         <attr name="incomingAvatarWidth" format="dimension|reference"/>
         <attr name="incomingAvatarHeight" format="dimension|reference"/>
 
+        <attr name="incomingAvatarPosition">
+            <enum name="cellTop" value="0" />
+            <enum name="messageLabelTop" value="1" />
+            <enum name="messageTop" value="2" />
+            <enum name="messageCenter" value="3" />
+            <enum name="messageBottom" value="4" />
+            <enum name="messageLabelBottom" value="5" />
+            <enum name="cellBottom" value="6" />
+        </attr>
+
         <attr name="incomingBubbleStyle">
             <enum name="none" value="0" />
             <enum name="bubble" value="1" />

@@ -18,6 +18,7 @@ data class AvatarPosition(
         object MessageTop: Vertical()
         object MessageCenter: Vertical()
         object MessageBottom: Vertical()
+        object MessageLabelBottom: Vertical()
         object CellBottom: Vertical()
     }
 }
