@@ -70,7 +70,6 @@ open class MessageContentCellViewHolder(
             params.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
             params.leftToLeft = ConstraintLayout.LayoutParams.UNSET
 
-            messageContainer.setBackgroundResource(R.drawable.shape_outgoing_message)
             messageContainer.background = style.getOutgoingBubbleDrawable()
             messageContainer.setPadding(
                 style.outgoingDefaultBubblePaddingLeft,

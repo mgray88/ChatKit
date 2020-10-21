@@ -178,7 +178,10 @@ class MessagesListStyle private constructor(
                 outgoingDefaultBubblePressedColor, R.drawable.shape_outgoing_message
             )
         } else {
-            getDrawable(outgoingBubbleDrawable)
+            getMessageSelector(
+                outgoingDefaultBubbleColor, outgoingDefaultBubbleSelectedColor,
+                outgoingDefaultBubblePressedColor, outgoingBubbleDrawable
+            )
         }
     }
 
@@ -200,7 +203,10 @@ class MessagesListStyle private constructor(
                 incomingDefaultBubblePressedColor, R.drawable.shape_incoming_message
             )
         } else {
-            getDrawable(incomingBubbleDrawable)
+            getMessageSelector(
+                incomingDefaultBubbleColor, incomingDefaultBubbleSelectedColor,
+                incomingDefaultBubblePressedColor, incomingBubbleDrawable
+            )
         }
     }
 
