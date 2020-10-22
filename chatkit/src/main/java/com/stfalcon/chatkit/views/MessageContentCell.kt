@@ -1,5 +1,6 @@
 package com.stfalcon.chatkit.views
 
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -13,7 +14,6 @@ import com.stfalcon.chatkit.commons.models.MessageType
 import com.stfalcon.chatkit.databinding.MessageContentCellBinding
 import com.stfalcon.chatkit.messages.MessagesListAdapter
 import com.stfalcon.chatkit.messages.MessagesListStyle
-import com.stfalcon.chatkit.utils.dp
 
 open class MessageContentCellViewHolder(
     private val binding: MessageContentCellBinding
@@ -67,17 +67,46 @@ open class MessageContentCellViewHolder(
         run {
             val cellTopLabelHeight = layoutDelegate.cellTopLabelHeight(message, position)
             val params = cellTopLabel.layoutParams
-            params.height = cellTopLabelHeight
+            if (cellTopLabelHeight > 0) {
+                params.height = cellTopLabelHeight
+                cellTopLabel.visibility = View.VISIBLE
+            } else {
+                cellTopLabel.visibility = View.GONE
+            }
             cellTopLabel.layoutParams = params
         }
         run {
             val cellBottomLabelHeight = layoutDelegate.cellBottomLabelHeight(message, position)
             val params = cellBottomLabel.layoutParams
-            params.height = cellBottomLabelHeight
+            if (cellBottomLabelHeight > 0) {
+                params.height = cellBottomLabelHeight
+                cellBottomLabel.visibility = View.VISIBLE
+            } else {
+                cellBottomLabel.visibility = View.GONE
+            }
             cellBottomLabel.layoutParams = params
         }
         run {
-
+            val messageTopLabelHeight = layoutDelegate.messageTopLabelHeight(message, position)
+            val params = messageTopLabel.layoutParams
+            if (messageTopLabelHeight > 0) {
+                params.height = messageTopLabelHeight
+                messageTopLabel.visibility = View.VISIBLE
+            } else {
+                messageTopLabel.visibility = View.GONE
+            }
+            messageTopLabel.layoutParams = params
+        }
+        run {
+            val messageBottomLabelHeight = layoutDelegate.messageBottomLabelHeight(message, position)
+            val params = messageBottomLabel.layoutParams
+            if (messageBottomLabelHeight > 0) {
+                params.height = messageBottomLabelHeight
+                messageBottomLabel.visibility = View.VISIBLE
+            } else {
+                messageBottomLabel.visibility = View.GONE
+            }
+            messageBottomLabel.layoutParams = params
         }
     }
 
@@ -117,6 +146,8 @@ open class MessageContentCellViewHolder(
                 }
 
                 avatar.layoutParams = params
+                avatar.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                avatar.gravity = Gravity.CENTER
             }
         }
     }
