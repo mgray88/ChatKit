@@ -21,6 +21,7 @@
     <dimen name="dialog_divider_margin_left">88dp</dimen>
     <dimen name="dialog_divider_margin_right">0dp</dimen>
 
+    <dimen name="message_item_spacing">16dp</dimen>
     <dimen name="message_avatar_width">40dp</dimen>
     <dimen name="message_avatar_height">40dp</dimen>
     <dimen name="message_padding_left">10dp</dimen>
