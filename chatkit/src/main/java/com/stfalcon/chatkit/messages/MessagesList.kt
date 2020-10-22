@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.stfalcon.chatkit.commons.models.MessageType
 import com.stfalcon.chatkit.messages.MessagesListStyle.Companion.parse
+import com.stfalcon.chatkit.utils.dp
 
 /**
  * Component for displaying list of messages
@@ -91,5 +92,6 @@ class MessagesList : RecyclerView {
 
     private fun parseStyle(context: Context, attrs: AttributeSet?) {
         messagesListStyle = parse(context, attrs!!)
+        addItemDecoration(DefaultItemDecoration(16.dp))
     }
 }
