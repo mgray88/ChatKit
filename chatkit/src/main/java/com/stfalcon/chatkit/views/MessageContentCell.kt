@@ -63,11 +63,14 @@ open class MessageContentCellViewHolder(
         val layoutDelegate = adapter.messageLayoutDelegate
 
         delegate.configureAvatarView(avatar, message, position)
-
+        adapter.messageDataSourceDelegate.bindCellTopLabel(message, position, cellTopLabel)
+        adapter.messageDataSourceDelegate.bindMessageTopLabel(message, position, messageTopLabel)
+        adapter.messageDataSourceDelegate.bindMessageBottomLabel(message, position, messageBottomLabel)
+        
         run {
             val cellTopLabelHeight = layoutDelegate.cellTopLabelHeight(message, position)
             val params = cellTopLabel.layoutParams
-            if (cellTopLabelHeight > 0) {
+            if (cellTopLabelHeight != 0) {
                 params.height = cellTopLabelHeight
                 cellTopLabel.visibility = View.VISIBLE
             } else {
@@ -78,7 +81,7 @@ open class MessageContentCellViewHolder(
         run {
             val cellBottomLabelHeight = layoutDelegate.cellBottomLabelHeight(message, position)
             val params = cellBottomLabel.layoutParams
-            if (cellBottomLabelHeight > 0) {
+            if (cellBottomLabelHeight != 0) {
                 params.height = cellBottomLabelHeight
                 cellBottomLabel.visibility = View.VISIBLE
             } else {
@@ -89,7 +92,7 @@ open class MessageContentCellViewHolder(
         run {
             val messageTopLabelHeight = layoutDelegate.messageTopLabelHeight(message, position)
             val params = messageTopLabel.layoutParams
-            if (messageTopLabelHeight > 0) {
+            if (messageTopLabelHeight != 0) {
                 params.height = messageTopLabelHeight
                 messageTopLabel.visibility = View.VISIBLE
             } else {
@@ -100,7 +103,7 @@ open class MessageContentCellViewHolder(
         run {
             val messageBottomLabelHeight = layoutDelegate.messageBottomLabelHeight(message, position)
             val params = messageBottomLabel.layoutParams
-            if (messageBottomLabelHeight > 0) {
+            if (messageBottomLabelHeight != 0) {
                 params.height = messageBottomLabelHeight
                 messageBottomLabel.visibility = View.VISIBLE
             } else {

@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.TextView
+import android.widget.WrapperListAdapter
 import com.stfalcon.chatkit.commons.models.MessageKind
 import com.stfalcon.chatkit.commons.models.MessageType
 import com.stfalcon.chatkit.databinding.MessageContentCellBinding

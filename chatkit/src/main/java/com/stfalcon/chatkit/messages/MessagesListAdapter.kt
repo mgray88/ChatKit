@@ -19,10 +19,13 @@
 package com.stfalcon.chatkit.messages
 
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.stfalcon.chatkit.commons.ImageLoader
 import com.stfalcon.chatkit.commons.models.MessageType
 import com.stfalcon.chatkit.interfaces.MessageCellDelegate
+import com.stfalcon.chatkit.interfaces.MessageDataSourceDelegate
 import com.stfalcon.chatkit.interfaces.MessageDisplayDelegate
 import com.stfalcon.chatkit.interfaces.MessageLayoutDelegate
 import com.stfalcon.chatkit.views.MessageContentCellViewHolder
@@ -35,12 +38,13 @@ import com.stfalcon.chatkit.views.layoutInflater
 open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     internal val senderId: String,
     protected val imageLoader: ImageLoader? = null,
-) : RecyclerView.Adapter<MessageContentCellViewHolder>(), RecyclerScrollMoreListener.OnLoadMoreListener {
-    val messages = mutableListOf<Message>()
+    diffCallback: DiffUtil.ItemCallback<Message>
+) : ListAdapter<Message, MessageContentCellViewHolder>(diffCallback), RecyclerScrollMoreListener.OnLoadMoreListener {
 
     open var messageCellDelegate = MessageCellDelegate()
     open var messageDisplayDelegate = MessageDisplayDelegate()
     open var messageLayoutDelegate = MessageLayoutDelegate()
+    open var messageDataSourceDelegate = MessageDataSourceDelegate()
     open var layoutManager: RecyclerView.LayoutManager? = null
     open var messagesListStyle: MessagesListStyle? = null
 
@@ -62,16 +66,12 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     }
 
     override fun onBindViewHolder(holder: MessageContentCellViewHolder, position: Int) {
-        val message = messages[position]
+        val message = getItem(position)
         holder.bind(message, position, this)
     }
 
-    override fun getItemCount(): Int {
-        return messages.size
-    }
-
     override fun getItemViewType(position: Int): Int {
-        val message = messages[position]
+        val message = getItem(position)
         return if (message.sender.id == senderId) {
             message.kind.viewType * -1
         } else {
@@ -88,6 +88,11 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
     override fun getMessagesCount(): Int {
         return itemCount
     }
+
+    public override fun getItem(position: Int): Message {
+        return super.getItem(position)
+    }
+    
     /*
      * PUBLIC METHODS
      * */
@@ -97,22 +102,22 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
      * @param message message to add.
      * @param scroll  `true` if need to scroll list to bottom when message added.
      */
-    fun addToStart(message: Message, scroll: Boolean) {
-        messages.add(0, message)
-        notifyItemRangeInserted(0, 1)
-        if (layoutManager != null && scroll) {
-            layoutManager!!.scrollToPosition(0)
-        }
-    }
+//    fun addToStart(message: Message, scroll: Boolean) {
+//        messages.add(0, message)
+//        notifyItemRangeInserted(0, 1)
+//        if (layoutManager != null && scroll) {
+//            layoutManager!!.scrollToPosition(0)
+//        }
+//    }
 
     /**
      * Updates message by its id.
      *
      * @param message updated message object.
      */
-    fun update(message: Message): Boolean {
-        return update(message.messageId, message)
-    }
+//    fun update(message: Message): Boolean {
+//        return update(message.messageId, message)
+//    }
 
     /**
      * Updates message by old identifier (use this method if id has changed). Otherwise use [.update]
@@ -120,42 +125,42 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
      * @param oldId      an identifier of message to update.
      * @param newMessage new message object.
      */
-    fun update(oldId: String, newMessage: Message): Boolean {
-        val position = getMessagePositionById(oldId)
-        return if (position >= 0) {
-            messages[position] = newMessage
-            notifyItemChanged(position)
-            true
-        } else {
-            false
-        }
-    }
+//    fun update(oldId: String, newMessage: Message): Boolean {
+//        val position = getMessagePositionById(oldId)
+//        return if (position >= 0) {
+//            messages[position] = newMessage
+//            notifyItemChanged(position)
+//            true
+//        } else {
+//            false
+//        }
+//    }
 
     /**
      * Moves the elements position from current to start
      *
      * @param newMessage new message object.
      */
-    fun updateAndMoveToStart(newMessage: Message) {
-        val position = getMessagePositionById(newMessage.messageId)
-        if (position >= 0) {
-            messages.removeAt(position)
-            messages.add(0, newMessage)
-            notifyItemMoved(position, 0)
-            notifyItemChanged(0)
-        }
-    }
+//    fun updateAndMoveToStart(newMessage: Message) {
+//        val position = getMessagePositionById(newMessage.messageId)
+//        if (position >= 0) {
+//            messages.removeAt(position)
+//            messages.add(0, newMessage)
+//            notifyItemMoved(position, 0)
+//            notifyItemChanged(0)
+//        }
+//    }
 
     /**
      * Updates message by its id if it exists, add to start if not
      *
      * @param message message object to insert or update.
      */
-    fun upsert(message: Message) {
-        if (!update(message)) {
-            addToStart(message, false)
-        }
-    }
+//    fun upsert(message: Message) {
+//        if (!update(message)) {
+//            addToStart(message, false)
+//        }
+//    }
 
     /**
      * Updates and moves to start if message by its id exists and if specified move to start, if not
@@ -163,25 +168,25 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
      *
      * @param message message object to insert or update.
      */
-    fun upsert(message: Message, moveToStartIfUpdate: Boolean) {
-        if (moveToStartIfUpdate) {
-            if (getMessagePositionById(message.messageId) > 0) {
-                updateAndMoveToStart(message)
-            } else {
-                upsert(message)
-            }
-        } else {
-            upsert(message)
-        }
-    }
+//    fun upsert(message: Message, moveToStartIfUpdate: Boolean) {
+//        if (moveToStartIfUpdate) {
+//            if (getMessagePositionById(message.messageId) > 0) {
+//                updateAndMoveToStart(message)
+//            } else {
+//                upsert(message)
+//            }
+//        } else {
+//            upsert(message)
+//        }
+//    }
 
     /**
      * Returns `true` if, and only if, messages count in adapter is non-zero.
      *
      * @return `true` if size is 0, otherwise `false`
      */
-    val isEmpty: Boolean
-        get() = messages.isEmpty()
+//    val isEmpty: Boolean
+//        get() = messages.isEmpty()
 
     /**
      * Set callback to be invoked when list scrolled to top.
@@ -196,9 +201,9 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
      * PRIVATE METHODS
      * */
 
-    internal fun getMessagePositionById(id: String): Int {
-        return messages.indexOfFirst { it.messageId == id }
-    }
+//    internal fun getMessagePositionById(id: String): Int {
+//        return messages.indexOfFirst { it.messageId == id }
+//    }
 
     /*
      * LISTENERS
