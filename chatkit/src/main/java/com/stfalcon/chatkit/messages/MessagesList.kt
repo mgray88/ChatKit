@@ -91,7 +91,8 @@ class MessagesList : RecyclerView {
     }
 
     private fun parseStyle(context: Context, attrs: AttributeSet?) {
-        messagesListStyle = parse(context, attrs!!)
-        addItemDecoration(DefaultItemDecoration(16.dp))
+        val style = parse(context, attrs!!)
+        addItemDecoration(DefaultItemDecoration(style.defaultMessageSpacing))
+        messagesListStyle = style
     }
 }

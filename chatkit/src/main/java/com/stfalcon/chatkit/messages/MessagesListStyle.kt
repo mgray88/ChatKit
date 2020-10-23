@@ -40,6 +40,8 @@ class MessagesListStyle private constructor(
     attrs: AttributeSet
 ) : Style(context, attrs) {
     var textAutoLinkMask = 0
+    var defaultMessageSpacing = 0
+
     var incomingTextLinkColor = 0
     var outgoingTextLinkColor = 0
     var incomingAvatarWidth = 0
@@ -229,6 +231,10 @@ class MessagesListStyle private constructor(
             val style = MessagesListStyle(context, attrs)
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.MessagesList)
             style.textAutoLinkMask = typedArray.getInt(R.styleable.MessagesList_textAutoLink, 0)
+            style.defaultMessageSpacing = typedArray.getDimensionPixelSize(
+                R.styleable.MessagesList_messageItemSpacing,
+                style.getDimension(R.dimen.message_item_spacing)
+            )
             style.incomingTextLinkColor = typedArray.getColor(
                 R.styleable.MessagesList_incomingTextLinkColor,
                 style.systemAccentColor

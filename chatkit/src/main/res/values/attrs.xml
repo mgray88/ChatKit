@@ -59,6 +59,8 @@
             <flag name="web" value="1"/>
         </attr>
 
+        <attr name="messageItemSpacing" format="dimension|reference"/>
+
         <attr name="incomingTextLinkColor" format="color|reference"/>
         <attr name="outgoingTextLinkColor" format="color|reference"/>
 
