@@ -191,7 +191,7 @@ public class MessageInput extends RelativeLayout
         this.messageInput.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getInputTextSize());
         this.messageInput.setTextColor(style.getInputTextColor());
         this.messageInput.setHintTextColor(style.getInputHintColor());
-        ViewCompat.setBackground(this.messageInput, style.getInputBackground());
+        ViewCompat.setBackground(this, style.getInputBackground());
         setCursor(style.getInputCursorDrawable());
 
         this.attachmentButton.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);

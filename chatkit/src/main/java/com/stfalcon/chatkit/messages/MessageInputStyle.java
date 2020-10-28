@@ -91,7 +91,10 @@ class MessageInputStyle extends Style {
 
         style.showAttachmentButton = typedArray.getBoolean(R.styleable.MessageInput_showAttachmentButton, false);
 
-        style.attachmentButtonBackground = typedArray.getResourceId(R.styleable.MessageInput_attachmentButtonBackground, -1);
+        style.attachmentButtonBackground = typedArray.getResourceId(
+            R.styleable.MessageInput_attachmentButtonBackground,
+            -1
+        );
         style.attachmentButtonDefaultBgColor = typedArray.getColor(R.styleable.MessageInput_attachmentButtonDefaultBgColor,
                 style.getColor(R.color.white_four));
         style.attachmentButtonDefaultBgPressedColor = typedArray.getColor(R.styleable.MessageInput_attachmentButtonDefaultBgPressedColor,
@@ -140,6 +143,9 @@ class MessageInputStyle extends Style {
         style.inputHintColor = typedArray.getColor(R.styleable.MessageInput_inputHintColor, style.getColor(R.color.warm_grey_three));
 
         style.inputBackground = typedArray.getDrawable(R.styleable.MessageInput_inputBackground);
+        if (style.inputBackground == null) {
+            style.inputBackground = style.getDrawable(R.drawable.input_background);
+        }
         style.inputCursorDrawable = typedArray.getDrawable(R.styleable.MessageInput_inputCursorDrawable);
 
         style.delayTypingStatus = typedArray.getInt(R.styleable.MessageInput_delayTypingStatus, DEFAULT_DELAY_TYPING_STATUS);

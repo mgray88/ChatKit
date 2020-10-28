@@ -21,6 +21,7 @@ package com.stfalcon.chatkit.messages
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.ListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.stfalcon.chatkit.commons.ImageLoader
 import com.stfalcon.chatkit.commons.models.MessageType
@@ -91,6 +92,16 @@ open class MessagesListAdapter<Message : MessageType> @JvmOverloads constructor(
 
     public override fun getItem(position: Int): Message {
         return super.getItem(position)
+    }
+
+    private var listChange: ((List<Message>) -> Unit)? = null
+    override fun onCurrentListChanged(previousList: MutableList<Message>, currentList: MutableList<Message>) {
+        super.onCurrentListChanged(previousList, currentList)
+        listChange?.invoke(currentList)
+    }
+
+    fun onCurrentListChanged(callback: (List<Message>) -> Unit) {
+        listChange = callback
     }
     
     /*

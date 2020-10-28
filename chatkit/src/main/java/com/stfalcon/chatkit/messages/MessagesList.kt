@@ -77,7 +77,7 @@ class MessagesList : RecyclerView {
         reverseLayout: Boolean
     ) {
         val itemAnimator: SimpleItemAnimator = DefaultItemAnimator()
-        itemAnimator.supportsChangeAnimations = false
+        itemAnimator.supportsChangeAnimations = true
         val layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL, reverseLayout
