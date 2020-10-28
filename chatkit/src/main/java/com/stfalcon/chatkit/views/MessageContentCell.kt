@@ -48,7 +48,7 @@ open class MessageContentCellViewHolder(
             adapter.messageCellDelegate.onCellLongClick(binding.messageContainer)
         }
         binding.messageContainer.setOnClickListener {
-            adapter.messageCellDelegate.onMessageClick(binding.messageContainer)
+            message?.let { messageType -> adapter.messageCellDelegate.onMessageClick(messageType) }
         }
         binding.messageContainer.setOnLongClickListener {
             adapter.messageCellDelegate.onMessageLongClick(binding.messageContainer)
@@ -58,6 +58,7 @@ open class MessageContentCellViewHolder(
     }
 
     override fun bind(message: MessageType, position: Int, adapter: MessagesListAdapter<out MessageType>) {
+        this.message = message
         val delegate = adapter.messageDisplayDelegate
         val style = adapter.messagesListStyle
         val layoutDelegate = adapter.messageLayoutDelegate
@@ -66,7 +67,7 @@ open class MessageContentCellViewHolder(
         adapter.messageDataSourceDelegate.bindCellTopLabel(message, position, cellTopLabel)
         adapter.messageDataSourceDelegate.bindMessageTopLabel(message, position, messageTopLabel)
         adapter.messageDataSourceDelegate.bindMessageBottomLabel(message, position, messageBottomLabel)
-        
+
         run {
             val cellTopLabelHeight = layoutDelegate.cellTopLabelHeight(message, position)
             val params = cellTopLabel.layoutParams

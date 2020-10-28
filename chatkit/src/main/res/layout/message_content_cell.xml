@@ -63,8 +63,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/message_container"
         tools:text="Message Bottom Label"
-        tools:paddingLeft="40dp"
-        />
+        tools:paddingLeft="40dp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/cell_bottom_label"

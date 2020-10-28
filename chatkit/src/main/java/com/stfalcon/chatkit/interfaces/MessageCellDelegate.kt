@@ -1,6 +1,7 @@
 package com.stfalcon.chatkit.interfaces
 
 import android.view.View
+import com.stfalcon.chatkit.commons.models.MessageType
 import com.stfalcon.chatkit.views.MessageContainerView
 
 open class MessageCellDelegate {
@@ -14,8 +15,8 @@ open class MessageCellDelegate {
         this.onCellLongClick = onCellLongClick
     }
 
-    open var onMessageClick: (messageContainer: MessageContainerView) -> Unit = { _ -> }
-    open fun onMessageClick(onMessageClick: (messageContainer: MessageContainerView) -> Unit) {
+    open var onMessageClick: (message: MessageType) -> Unit = { _ -> }
+    open fun onMessageClick(onMessageClick: (message: MessageType) -> Unit) {
         this.onMessageClick = onMessageClick
     }
 
