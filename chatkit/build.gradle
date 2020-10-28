@@ -43,7 +43,6 @@ publish {
 
 ext {
     supportVersion = '27.1.1'
-    flexboxVersion = '2.0.1'
 }
 
 dependencies {
@@ -64,7 +63,6 @@ dependencies {
     implementation "androidx.emoji:emoji-bundled:$androidx.emoji"
 
     implementation 'com.google.android.material:material:1.2.1'
-    implementation "com.google.android:flexbox:$flexboxVersion"
 
 }
 repositories {
