@@ -215,19 +215,19 @@ class MessageInputStyle extends Style {
         return attachmentButtonMargin;
     }
 
-    protected Drawable getInputButtonBackground() {
-        if (inputButtonBackground == -1) {
-            return getSelector(inputButtonDefaultBgColor, inputButtonDefaultBgPressedColor,
-                    inputButtonDefaultBgDisabledColor, R.drawable.mask);
-        } else {
-            return getDrawable(inputButtonBackground);
-        }
-    }
+//    protected Drawable getInputButtonBackground() {
+//        if (inputButtonBackground == -1) {
+//            return getSelector(inputButtonDefaultBgColor, inputButtonDefaultBgPressedColor,
+//                    inputButtonDefaultBgDisabledColor, R.drawable.mask);
+//        } else {
+//            return getDrawable(inputButtonBackground);
+//        }
+//    }
 
     protected Drawable getInputButtonIcon() {
         if (inputButtonIcon == -1) {
             return getSelector(inputButtonDefaultIconColor, inputButtonDefaultIconPressedColor,
-                    inputButtonDefaultIconDisabledColor, R.drawable.ic_send);
+                    inputButtonDefaultIconDisabledColor, R.drawable.send);
         } else {
             return getDrawable(inputButtonIcon);
         }
