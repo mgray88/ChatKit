@@ -99,9 +99,9 @@ class TextDrawable private constructor(builder: Builder) : ShapeDrawable(builder
         textPaint.alpha = alpha
     }
 
-    override fun setColorFilter(cf: ColorFilter) {
-        textPaint.colorFilter = cf
-    }
+//    override fun setColorFilter(cf: ColorFilter) {
+//        textPaint.colorFilter = cf
+//    }
 
     override fun getOpacity(): Int {
         return PixelFormat.TRANSLUCENT
