@@ -206,7 +206,7 @@ public class MessageInput extends RelativeLayout
         this.messageSendButton.setImageDrawable(style.getInputButtonIcon());
         this.messageSendButton.getLayoutParams().width = style.getInputButtonWidth();
         this.messageSendButton.getLayoutParams().height = style.getInputButtonHeight();
-        ViewCompat.setBackground(messageSendButton, style.getInputButtonBackground());
+        //ViewCompat.setBackground(messageSendButton, style.getInputButtonBackground());
         this.sendButtonSpace.getLayoutParams().width = style.getInputButtonMargin();
 
         if (getPaddingLeft() == 0

@@ -3,6 +3,7 @@ package com.stfalcon.chatkit.views
 import android.graphics.Color
 import android.text.Spannable
 import android.text.method.LinkMovementMethod
+import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
@@ -56,9 +57,12 @@ open class TextMessageCellViewHolder(
     open fun styleMessageLabel(style: MessagesListStyle, currentSender: Boolean) {
         if (currentSender) {
             messageLabel.setTextColor(style.outgoingTextColor)
+            messageLabel.setLinkTextColor(style.outgoingTextLinkColor)
         } else {
             messageLabel.setTextColor(style.incomingTextColor)
+            messageLabel.setLinkTextColor(style.incomingTextLinkColor)
         }
+        messageLabel.autoLinkMask = style.textAutoLinkMask
     }
 
     open fun configureLinksBehavior(textView: TextView) {
